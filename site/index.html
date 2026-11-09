@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="logo.png">
+<title>Memória da Loja América</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: régua de décadas fixa no topo; cada ano é uma faixa de três colunas — Brasil e mundo | ano | Loja América — que vira coluna única no celular */
+:root{
+  --bg:#F2F3F6; --surface:#FFFFFF; --sunk:#E6E9EF; --ink:#14203A; --muted:#5A6478; --line:#D3D8E2;
+  --navy:#0F2341; --navy-2:#1B3360; --gold:#B8912F; --gold-soft:#F3E9CC; --on-navy:#F5EFDD;
+  --br:#2F7A57; --sp:#9A3340; --mundo:#3B67A3; --maco:#8A6A1E;
+  --c3:#B8912F; --c2:#3B67A3; --c1:#8C94A6;
+  --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-text:"Source Serif 4",Georgia,serif;
+  --r:10px; --base:16px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A1322; --surface:#111D33; --sunk:#16243E; --ink:#E9E5D8; --muted:#A3ABBD; --line:#26365A;
+  --navy:#0B1A31; --navy-2:#1D355F; --gold:#D8B45C; --gold-soft:#3A3120; --on-navy:#F5EFDD;
+  --br:#5CB88B; --sp:#E07A86; --mundo:#7FA6DE; --maco:#D8B45C; --c3:#D8B45C; --c2:#7FA6DE; --c1:#7D869A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1322; --surface:#111D33; --sunk:#16243E; --ink:#E9E5D8; --muted:#A3ABBD; --line:#26365A;
+  --navy:#0B1A31; --navy-2:#1D355F; --gold:#D8B45C; --gold-soft:#3A3120; --on-navy:#F5EFDD;
+  --br:#5CB88B; --sp:#E07A86; --mundo:#7FA6DE; --maco:#D8B45C; --c3:#D8B45C; --c2:#7FA6DE; --c1:#7D869A; color-scheme:dark}
+html.kiosk{--base:20px}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--base);line-height:1.5;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--navy)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;font-weight:600}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+.tab-nums{font-variant-numeric:tabular-nums}
+
+/* Cabeçalho */
+.hero{background:var(--navy);color:var(--on-navy)}
+.hero .wrap{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;padding-block:28px 22px}
+.hero img{width:112px;height:112px;border-radius:50%;background:#fff;padding:3px}
+.eyebrow{font-size:.78em;letter-spacing:.14em;text-transform:uppercase;color:#D8B45C;font-weight:600}
+.hero h1{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.05;margin-top:4px}
+.hero h1 em{font-style:italic;font-weight:500;color:#D8B45C}
+.hero p{max-width:62ch;margin:10px 0 0;color:#CFD6E6}
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:16px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.9em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8em;color:#AEB8CE}
+.hero .wrap.tools{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;padding-block:0 14px}
+.tools button{background:transparent;border:1px solid #3A5384;color:#DCE3F2;border-radius:999px;padding:5px 14px;font-size:.85em}
+.tools button[aria-pressed="true"]{background:#D8B45C;color:#0F2341;border-color:#D8B45C}
+.langs{display:inline-flex;border:1px solid #3A5384;border-radius:999px;overflow:hidden}
+.langs button{border:0;border-radius:0;padding:5px 11px;font-weight:600;letter-spacing:.04em}
+.lang-note{background:var(--gold-soft);border-radius:8px;padding:8px 12px;margin:0 0 14px;font-size:.92em}
+
+/* Navegação principal */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--navy-2);color:var(--on-navy);box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav a{color:#DCE3F2;text-decoration:none;padding:12px 14px;white-space:nowrap;font-weight:600;font-size:.95em;border-bottom:3px solid transparent}
+.nav a[aria-current="page"]{color:#fff;border-bottom-color:#D8B45C}
+
+/* Régua de décadas */
+.ruler{position:sticky;top:calc(env(safe-area-inset-top,0px) + 47px);z-index:15;background:var(--surface);border-bottom:1px solid var(--line)}
+.ruler .wrap{display:flex;gap:2px;overflow-x:auto;padding-block:8px;scrollbar-width:thin}
+.ruler button{border:0;background:transparent;padding:6px 10px;border-radius:6px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;position:relative}
+.ruler button .bar{position:absolute;left:10%;right:10%;bottom:2px;height:3px;border-radius:2px;background:var(--gold);opacity:.25}
+.ruler button.on{background:var(--gold-soft);color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding-block:12px;font-size:.88em;color:var(--muted)}
+.chip-t{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px}
+.chip-t input{accent-color:var(--gold);margin:0}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+
+/* Linha do tempo */
+.lanes-head{display:grid;grid-template-columns:1fr 112px 1fr;gap:20px;font-size:.75em;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:8px 0;border-bottom:2px solid var(--ink)}
+.lanes-head div:first-child{text-align:right}
+.lanes-head div:nth-child(2){text-align:center}
+.decade{scroll-margin-top:120px}
+.decade>h2{font-size:2.2em;color:var(--gold);padding:26px 0 4px;text-align:center}
+.era{margin:10px 0 14px;background:var(--sunk);border-radius:var(--r);padding:14px 18px;border-left:4px solid var(--navy-2)}
+.era h3{font-size:1.35em}
+.era .span{font-size:.8em;color:var(--muted);font-weight:600;letter-spacing:.06em}
+.era p{margin:6px 0 0;max-width:80ch;font-size:.95em}
+.yr{display:grid;grid-template-columns:1fr 112px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--line);scroll-margin-top:120px}
+.yr-ctx{display:flex;flex-direction:column;gap:8px;align-items:flex-end;text-align:right;min-width:0}
+.yr-loja{display:flex;flex-direction:column;gap:10px;min-width:0}
+.yr-n{text-align:center;position:relative}
+.yr-n b{font-family:var(--f-display);font-size:2.1em;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;display:block}
+.yr-n small{display:block;font-size:.72em;color:var(--muted);line-height:1.3;margin-top:4px}
+.ev{max-width:44ch;font-size:.92em}
+.ev .tag{font-size:.72em;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.ev h4{margin:1px 0 0;font-size:1.02em;font-weight:600}
+.ev p{margin:2px 0 0;color:var(--muted)}
+.meta-line{display:flex;flex-wrap:wrap;gap:6px}
+.pill{display:inline-flex;gap:6px;align-items:center;font-size:.8em;background:var(--sunk);border-radius:999px;padding:3px 10px;color:var(--ink)}
+.pill b{font-weight:700;color:var(--muted);font-size:.9em;text-transform:uppercase;letter-spacing:.06em}
+.marco{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 0 var(--line)}
+.marco .when{font-size:.78em;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+.marco h3{font-size:1.45em;line-height:1.15;margin:2px 0 6px}
+.marco p{margin:0 0 8px;font-family:var(--f-text);font-size:.95em}
+.marco details{border-top:1px dashed var(--line);padding-top:6px;margin-top:6px}
+.marco summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:.88em}
+.marco details p{color:var(--ink);margin-top:6px}
+.links{display:flex;flex-wrap:wrap;gap:6px}
+.lk{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:3px 9px;font-size:.82em;font-variant-numeric:tabular-nums}
+.lk:hover{border-color:var(--gold)}
+.atas-btn{align-self:flex-start;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;font-size:.88em;display:inline-flex;gap:8px;align-items:center}
+.atas-btn .n3{color:var(--c3);font-weight:700}
+.alist{display:flex;flex-direction:column;gap:2px;border-left:2px solid var(--line);padding-left:10px}
+.arow{display:grid;grid-template-columns:auto 1fr;gap:10px;text-align:left;background:transparent;border:0;padding:6px 6px;border-radius:6px;align-items:baseline}
+.arow:hover{background:var(--sunk)}
+.arow .dt{font-variant-numeric:tabular-nums;font-weight:600;font-size:.85em;white-space:nowrap;display:flex;gap:6px;align-items:center}
+.arow .rs{font-size:.88em;color:var(--muted);min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cat{width:8px;height:8px;border-radius:2px;display:inline-block}
+.c3{background:var(--c3)}.c2{background:var(--c2)}.c1{background:var(--c1)}
+.gap{grid-column:1/-1;text-align:center;color:var(--muted);font-size:.85em;padding:10px 0;border-bottom:1px dotted var(--line)}
+.notice{background:var(--gold-soft);border-radius:var(--r);padding:12px 16px;margin:16px 0;font-size:.92em}
+
+/* Outras vistas */
+.view{padding-block:22px 40px}
+.view h2{font-size:2em;margin-bottom:6px}
+.lead{color:var(--muted);max-width:70ch;margin:0 0 16px}
+.search{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.search input,.search select{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0}
+.search input{flex:1 1 260px}
+.count{font-size:.85em;color:var(--muted);margin-bottom:8px}
+.res{display:flex;flex-direction:column;gap:6px}
+.res .arow{background:var(--surface);border:1px solid var(--line);padding:10px 12px}
+.res .arow .rs{-webkit-line-clamp:3}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.88em}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{position:sticky;top:0;background:var(--sunk);font-size:.78em;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody tr:hover{background:var(--sunk)}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.conf{font-size:.75em;padding:1px 7px;border-radius:999px;background:var(--sunk)}
+.more{margin-top:12px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 16px}
+.sedes{display:flex;flex-direction:column;gap:0;border-left:3px solid var(--gold);margin-left:8px}
+.sede{position:relative;padding:10px 0 14px 22px}
+.sede::before{content:"";position:absolute;left:-8px;top:16px;width:13px;height:13px;border-radius:50%;background:var(--surface);border:3px solid var(--gold)}
+.sede .p{font-weight:700;font-variant-numeric:tabular-nums;font-size:.9em;color:var(--muted)}
+.sede h3{font-size:1.4em}
+.sede .f{font-size:.8em;color:var(--muted)}
+
+/* Leitor de ata */
+.reader{position:fixed;inset:0;z-index:50;display:grid;place-items:end center;background:rgba(6,12,24,.55)}
+.sheet{background:var(--surface);color:var(--ink);width:min(860px,100%);max-height:92vh;overflow:auto;border-radius:14px 14px 0 0;padding:22px max(18px,env(safe-area-inset-left,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-right,0px))}
+.sheet header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.sheet h2{font-size:1.9em;line-height:1.1}
+.close{border:1px solid var(--line);background:var(--bg);border-radius:999px;width:40px;height:40px;flex:none;font-size:1.2em}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;font-size:.9em;margin:12px 0}
+.kv dt{color:var(--muted);font-weight:600}
+.kv dd{margin:0}
+.box{background:var(--sunk);border-radius:var(--r);padding:12px 14px;margin:10px 0}
+.box h4{margin:0 0 4px;font-size:.78em;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.box p{margin:0;font-family:var(--f-text)}
+.tx{font-family:var(--f-text);white-space:pre-wrap;line-height:1.7;font-size:.98em;border-top:2px solid var(--gold);padding-top:14px;margin-top:14px}
+.tx h4{font-family:var(--f-body);font-size:.78em;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;white-space:normal}
+.navrow{display:flex;justify-content:space-between;gap:8px;margin-top:16px}
+.navrow button{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 14px}
+.sheet.wide{width:min(1320px,100%)}
+.modes{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;margin:6px 0 2px;background:var(--bg);flex-wrap:wrap}
+.modes button{border:0;background:transparent;border-radius:999px;padding:6px 14px;font-weight:600;font-size:.88em;color:var(--muted)}
+.modes button[aria-pressed="true"]{background:var(--navy);color:var(--on-navy)}
+.doc{display:grid;gap:24px;grid-template-columns:1fr}
+.sheet[data-mode="orig"] .tx,.sheet[data-mode="trans"] .orig{display:none}
+.sheet[data-mode="ambos"] .doc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.sheet[data-mode="ambos"] .orig,.sheet[data-mode="ambos"] .tx{max-height:70vh;overflow:auto}
+.orig{border-top:2px solid var(--gold);padding-top:14px;margin-top:14px;min-width:0}
+.orig h4{font-size:.78em;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.pg{margin:0 0 14px}
+.pg-frame{display:block;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:6px;padding:0;background:#fff;cursor:zoom-in}
+.pg-frame img{display:block;width:100%;height:auto;max-width:none}
+.pg figcaption{font-size:.78em;color:var(--muted);margin-top:4px}
+.pg-miss div{border:1px dashed var(--line);border-radius:6px;padding:28px;text-align:center;color:var(--muted)}
+.pg-note{font-size:.78em;color:var(--muted)}
+.zoom{position:fixed;inset:0;z-index:60;background:#0A0F1A;display:flex;flex-direction:column;color:#E9E5D8}
+.zbar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) 10px max(14px,env(safe-area-inset-left,0px));font-weight:600}
+.zbar button{background:#1D355F;border:0;color:#fff;border-radius:999px;width:42px;height:42px;font-size:1.2em;margin-left:6px}
+.zscroll{flex:1;overflow:auto;padding:0 max(10px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
+.zpage{width:100%;max-width:none;overflow:hidden;background:#fff;margin:0 auto}
+.zpage img{display:block;width:100%;height:auto;max-width:none}
+@media (max-width:760px){.sheet[data-mode="ambos"] .doc{grid-template-columns:1fr}.sheet[data-mode="ambos"] .orig,.sheet[data-mode="ambos"] .tx{max-height:none}}
+.marco.fora{border-style:dashed;border-color:var(--gold)}
+.fora-tag{display:inline-block;margin-left:6px;background:var(--gold-soft);color:var(--ink);border-radius:999px;padding:1px 8px;font-size:.92em;letter-spacing:.04em;text-transform:none}
+.fonte{font-size:.78em;color:var(--muted);margin-top:8px}
+.fonte a{color:inherit}
+.alem{display:flex;flex-direction:column;gap:14px}
+.fotos{display:flex;align-items:flex-start;gap:8px;overflow-x:auto;max-width:100%;margin:8px 0 10px;padding-bottom:4px;scroll-snap-type:x proximity}
+.foto{flex:0 0 auto;border:0;padding:0;background:var(--line);border-radius:8px;overflow:hidden;cursor:zoom-in;scroll-snap-align:start}
+.foto img{display:block;height:180px;width:auto;max-width:none}
+.fotos .foto:first-child img{height:240px}
+.vid{margin:0 0 10px}.vid video{display:block;width:100%;max-width:640px;aspect-ratio:16/9;background:#000;border-radius:8px}.vid figcaption{font-size:.78em;color:var(--muted);margin-top:4px}
+.fotos-n{font-size:.75em;color:var(--muted);margin:-4px 0 8px}
+.foto:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.marco details.det{border-top:1px solid var(--gold-soft)}
+.marco details.det summary{color:var(--gold);font-size:.92em}
+.marco details.det p{font-family:var(--f-text);line-height:1.55}
+.irmaos{background:var(--gold-soft);border-radius:8px;padding:10px 12px;margin:6px 0 4px}
+.irmaos h4{margin:0 0 4px;font-size:.82em;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.irmaos ul{margin:0;padding-left:18px;font-size:.9em}
+.irmaos li{margin:2px 0}
+.lbx{position:fixed;inset:0;z-index:70;background:#0A0F1A;display:flex;flex-direction:column;color:#EDE8DA}
+.lbx-top{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.9em}
+.lbx-x{background:none;border:1px solid #556;color:inherit;border-radius:999px;width:40px;height:40px;font-size:18px;cursor:pointer}
+.lbx-img{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:0;padding:0 8px}
+.lbx-img img{max-width:calc(100% - 110px);max-height:100%;object-fit:contain;border-radius:4px}
+.lbx-nav{background:rgba(255,255,255,.08);border:0;color:inherit;font-size:34px;width:48px;height:64px;border-radius:8px;cursor:pointer}
+.lbx-cap{padding:10px 16px 16px;text-align:center;font-family:var(--f-text);max-width:900px;margin:0 auto}
+.lbx-cap span{display:block;font-size:.8em;opacity:.7;margin-top:2px}
+@media (max-width:760px){.foto img{height:140px}.fotos .foto:first-child img{height:180px}.lbx-img img{max-width:calc(100% - 80px)}.lbx-nav{width:36px}}
+.alem-item>*,.marco{min-width:0}
+.alem-item{display:grid;grid-template-columns:80px minmax(0,1fr);gap:16px;align-items:start}
+.alem-ano{font-family:var(--f-display);font-size:1.8em;font-weight:700;color:var(--gold);text-decoration:none;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.alem-item{grid-template-columns:1fr;gap:4px}}
+footer{background:var(--navy);color:#AEB8CE;font-size:.85em}
+footer .wrap{padding-block:18px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+.loading{padding:40px 0;color:var(--muted);text-align:center}
+
+@media (max-width:760px){
+  .hero .wrap{grid-template-columns:1fr;gap:14px}
+  .hero img{width:80px;height:80px}
+  .lanes-head{display:none}
+  .yr{grid-template-columns:1fr;gap:8px}
+  .yr-n{order:-1;text-align:left;display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:4px}
+  .yr-n small{margin:0}
+  .yr-ctx{align-items:flex-start;text-align:left;order:2}
+  .yr-loja{order:1}
+  .ev{border-left:3px solid var(--line);padding-left:10px}
+}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px)}to{transform:none}}}
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap">
+    <img src="logo.png" alt="Selo da Aug∴ Resp∴ Ben∴ Gr∴ Benf∴ Cent∴ Loj∴ América" data-i18n-alt="logoAlt">
+    <div>
+      <div class="eyebrow" data-i18n="eyebrow">Loja Maçônica América nº 189 · São Paulo</div>
+      <h1 data-i18n-html="h1">A história da Loja América, <em>sessão por sessão</em></h1>
+      <p data-i18n="heroLead">De 1868 aos dias de hoje: as atas da Loja lado a lado com a história do Brasil e do mundo. Escolha uma década, abra um ano e leia cada ata no manuscrito original e na transcrição fiel.</p>
+      <div class="stats" id="stats"></div>
+    </div>
+  </div>
+  <div class="wrap tools">
+    <div class="langs" role="group" aria-label="Idioma"><button data-lang="pt" lang="pt">PT</button><button data-lang="es" lang="es">ES</button><button data-lang="en" lang="en">EN</button></div>
+    <button id="bt-kiosk" aria-pressed="false" data-i18n="kiosk">Modo totem</button>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Seções" data-i18n-aria="navAria">
+  <div class="wrap">
+    <a href="#linha" data-i18n="navLinha">Linha do tempo</a>
+    <a href="#atas" data-i18n="navAtas">Atas</a>
+    <a href="#administracao" data-i18n="navAdm">Veneráveis e administração</a>
+    <a href="#membros" data-i18n="navMem">Membros</a>
+    <a href="#sedes" data-i18n="navSedes">Sedes</a>
+    <a href="#alem" data-i18n="navAlem">Além das atas</a>
+  </div>
+</nav>
+
+<main id="main"><div class="wrap loading" data-i18n="loading">Carregando o acervo…</div></main>
+
+<footer><div class="wrap"><span data-i18n="footer1">Loja Maçônica América 189 · Rua Apeninos, 515 · São Paulo, SP</span><span data-i18n="footer2">Rascunho do portal · conteúdo em revisão</span></div></footer>
+
+<div class="reader" id="reader" hidden></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const S={img:{},mode:null,atas:[],byId:{},byYear:{},marcos:[],ctx:{eras:[],eventos:[]},adm:[],mem:[],sedesT:[],tx:{},view:null,lanes:{"Brasil":1,"São Paulo":1,"Mundo":1,"Maçonaria":1},onlyHist:false,openYears:new Set()};
+const FIRST=1868, LAST=2026;
+const ESF={"Brasil":"var(--br)","São Paulo":"var(--sp)","Mundo":"var(--mundo)","Maçonaria":"var(--maco)"};
+// Sedes com ano de início (da aba Sedes do índice)
+const SEDES=[
+ {de:1874,ate:1876,t:"Casa alugada",d:"Endereço não identificado; em 31/03/1875 o proprietário exige a entrega por ameaça de ruína"},
+ {de:1877,ate:1918,t:"Templo próprio (inaugurado em 06/02/1877)",d:"Compartilhado com as Lojas Humildade e 7 de Setembro; endereço a confirmar"},
+ {de:1919,ate:1919,t:"Rua 7 de Abril",d:"Festas no Templo Nobre da Rua Tabatinguera"},
+ {de:1920,ate:1920,t:"Rua Xavier de Toledo, 52",d:"Templo da Loja Itália"},
+ {de:1921,ate:1923,t:"Duas sedes durante a cisão",d:"Facção fiel ao GOB: Rua Carlos Gomes, 50 e Rua do Thesouro, 3. Facção do Gr∴ Or∴ de S. Paulo: Rua Xavier de Toledo, 52"},
+ {de:1924,ate:1925,t:"Rua Xavier de Toledo, 52",d:""},
+ {de:1926,ate:1929,t:"Rua Conde do Pinhal, 14-16",d:"Antes, de abril a julho de 1926, Rua José Bonifácio, 39-A"},
+ {de:1930,ate:1935,t:"Praça da Sé, 26 (Palacete Piratininga)",d:""},
+ {de:1936,ate:1943,t:"Rua Barão de Tabatinguera, 37",d:"Primeira sessão em 28/10/1936"},
+ {de:1944,ate:1948,t:"Rua Tabatinguera, 165",d:""},
+ {de:1962,ate:1971,t:"Rua São Joaquim, 457",d:"Edifício Sede do GOSP"},
+ {de:1972,ate:1973,t:"Santo Amaro, Rua Um nº 69",d:"Templo da Loja Francisco Glicério"},
+ {de:1974,ate:1975,t:"Santo Amaro, nº 147",d:"Nome da rua a conferir"},
+ {de:2026,ate:2026,t:"Rua Apeninos, 515",d:"Sede atual, Templo Julio Chagas do Nascimento, no Paraíso; também sede do Instituto Herdeiros do Futuro e do SCORB"}
+];
+const sedeOf=y=>SEDES.find(s=>y>=s.de&&y<=s.ate);
+const cleanName=s=>String(s||'').replace(/\s*\((pela placa|\d+[^)]*)\)/g,'').replace(/\s*\(.*$/,'').trim();
+const tipo=a=>{let t=String(a.tp||'').replace(/\s*\(fls?\.?[^)]*\)/g,'').replace(new RegExp('\\s*(de|em)\\s*'+String(a.d).replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&'),'g'),'').replace(/^[\s–—-]+|[\s–—-]+$/g,'').trim();return t?t[0].toUpperCase()+t.slice(1):T_('sessao')};
+const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u);return r.json()});
+/* ---------- Idiomas (PT · ES · EN) ---------- */
+const LANGS=['pt','es','en'];
+let LANG='pt', TR={marcos:{},eras:{},eventos:{}};
+const UI={
+pt:{logoAlt:'Selo da Aug∴ Resp∴ Ben∴ Gr∴ Benf∴ Cent∴ Loj∴ América',eyebrow:'Loja Maçônica América nº 189 · São Paulo',h1:'A história da Loja América, <em>sessão por sessão</em>',
+heroLead:'De 1868 aos dias de hoje: as atas da Loja lado a lado com a história do Brasil e do mundo. Escolha uma década, abra um ano e leia cada ata no manuscrito original e na transcrição fiel.',
+kiosk:'Modo totem',navAria:'Seções',navLinha:'Linha do tempo',navAtas:'Atas',navAdm:'Veneráveis e administração',navMem:'Membros',navSedes:'Sedes',navAlem:'Além das atas',
+loading:'Carregando o acervo…',footer1:'Loja Maçônica América 189 · Rua Apeninos, 515 · São Paulo, SP',footer2:'Rascunho do portal · conteúdo em revisão',
+stAtas:'atas catalogadas',stTx:'atas transcritas na íntegra',stVen:'Veneráveis na placa',stMem:'membros identificados',stSedes:'endereços',
+decadas:'Décadas',ataN:'ata',atasN:'atas',mostrar:'Mostrar:',soHist:'Só atas históricas',laneCtx:'Brasil e mundo',laneAno:'Ano',laneLoja:'Loja América',gap:'nada registrado no acervo nem na cronologia',
+notice1976:'<b>Atas de 1976 em diante:</b> ainda não incorporadas ao acervo digital. A Loja segue indicada pelos Veneráveis da placa; as atas desse período serão acrescentadas.',
+posse:'Posse',gestao:'gestão',novaSede:'Nova sede',ver:'Ver',ocultar:'Ocultar',hist1:'histórica',histN:'históricas',venAbbr:'Ven∴',
+ataDe:'Ata de',ampliarFoto:'Ampliar foto',fotos:'fotos',toque:'toque para ampliar',irmaosEnv:'Irmãos da Loja envolvidos',leia:'Leia a história completa',leiaIrm:' e os Irmãos envolvidos',fonte:'Fonte',ctxHist:'Contexto histórico',
+fechar:'Fechar',fotoAnt:'Foto anterior',fotoProx:'Próxima foto',foto:'Foto',nenhumaHist:'Nenhuma ata histórica neste ano.',categoria:'Categoria',
+atasLead:'Busque por assunto, nome ou data. Toque numa ata para ler o resumo e a transcrição completa, feita <i>ipsis litteris</i> a partir dos livros originais.',
+atasPh:'Ex.: abolição, Rui Barbosa, eleição, 1932',buscarAtas:'Buscar atas',decada:'Década',todasDec:'Todas as décadas',todasCat:'Todas as categorias',cat3:'Históricas',cat2:'Úteis',cat1:'Rotina',
+transcricao:'Transcrição',comSem:'Com ou sem transcrição',soTx:'Só transcritas',mais:'Mostrar mais',semTx:'sem transcrição',
+admLead:'Gestões da Loja reconstituídas a partir das atas e assinaturas; quando não há atas, vale o Venerável da placa da Loja. Toque no ano para ver a gestão na linha do tempo.',
+thGestao:'Gestão',thVen:'Venerável',thV1:'1º Vigilante',thV2:'2º Vigilante',thOr:'Orador',thSec:'Secretário',thTes:'Tesoureiro',placa:'placa',atasConf:'atas',
+memLead:'Pessoas identificadas nas atas e nos livros de presença, na placa do Sesquicentenário (2018) e no Quadro de Obreiros do GOSP (2026), com o primeiro e o último registro, cargos e marcos (iniciação, filiação, falecimento). Para ver o quadro atual, escolha a situação “Membro ativo (2026)”. Os nomes estão como aparecem nos documentos; grafias diferentes podem ser a mesma pessoa.',
+buscarNome:'Buscar nome',todasSit:'Todas as situações',thNome:'Nome',thSit:'Situação',thPer:'Período',thCargos:'Cargos',thMarcos:'Marcos',pessoa:'pessoa',pessoas:'pessoas',tambem:'também',
+sedesH:'Sedes da Loja',sedesLead:'Os endereços onde a Loja se reuniu, segundo as atas. Alguns períodos ainda não têm endereço identificado no acervo.',hoje:'Hoje',verLinha:'Ver na linha do tempo',
+alemLead:'Ações e acontecimentos da Loja América que não aparecem nas atas do acervo: as primeiras décadas narradas pela história tradicional da Loja e as iniciativas recentes, como o Instituto Herdeiros do Futuro, o SCORB e as festas da família maçônica. Abra cada item para ler a história completa, ver os Irmãos envolvidos e as fotos. Cada item indica a fonte.',
+pagina:'página',imgMiss:'Imagem desta página ainda não disponível',ampliar:'Ampliar',facsimile:'Fac-símile',facsimileAmp:'Fac-símile ampliado',fecharZoom:'Fechar ampliação',
+ataCat3:'Ata histórica',ataCat2:'Ata útil',ataCat1:'Ata de rotina',presidiu:'Presidiu',sede:'Sede',temas:'Temas',livro:'Livro',resumo:'Resumo',porQue:'Por que é histórica',comoLer:'Como ler a ata',
+manuscrito:'Manuscrito original',ladoALado:'Lado a lado',carregTx:'Carregando a transcrição…',naoTx:'Esta ata ainda não foi transcrita. O resumo acima vem do índice do acervo.',
+ataAnt:'Ata anterior',ataProx:'Próxima ata',verAno:'Ver {y} na linha do tempo',pgNote:'Imagens em escala de cinza, reduzidas a partir da digitalização dos livros.',
+erroTx:'Não foi possível carregar a transcrição agora. Tente abrir a ata de novo.',erroBoot:'Não foi possível carregar o acervo. Recarregue a página.',sessao:'Sessão',langNote:'',idioma:'Idioma'},
+es:{logoAlt:'Sello de la Aug∴ Resp∴ Ben∴ Gr∴ Benf∴ Cent∴ Log∴ América',eyebrow:'Logia Masónica América nº 189 · São Paulo',h1:'La historia de la Logia América, <em>sesión por sesión</em>',
+heroLead:'Desde 1868 hasta hoy: las actas de la Logia junto a la historia de Brasil y del mundo. Elija una década, abra un año y lea cada acta en el manuscrito original y en la transcripción fiel.',
+kiosk:'Modo tótem',navAria:'Secciones',navLinha:'Línea de tiempo',navAtas:'Actas',navAdm:'Venerables y administración',navMem:'Miembros',navSedes:'Sedes',navAlem:'Más allá de las actas',
+loading:'Cargando el acervo…',footer1:'Logia Masónica América 189 · Rua Apeninos, 515 · São Paulo, Brasil',footer2:'Borrador del portal · contenido en revisión',
+stAtas:'actas catalogadas',stTx:'actas transcritas íntegramente',stVen:'Venerables en la placa',stMem:'miembros identificados',stSedes:'direcciones',
+decadas:'Décadas',ataN:'acta',atasN:'actas',mostrar:'Mostrar:',soHist:'Solo actas históricas',laneCtx:'Brasil y el mundo',laneAno:'Año',laneLoja:'Logia América',gap:'nada registrado en el acervo ni en la cronología',
+notice1976:'<b>Actas de 1976 en adelante:</b> aún no incorporadas al acervo digital. La Logia se indica por los Venerables de la placa; las actas de ese período se añadirán.',
+posse:'Instalación',gestao:'gestión',novaSede:'Nueva sede',ver:'Ver',ocultar:'Ocultar',hist1:'histórica',histN:'históricas',venAbbr:'Ven∴',
+ataDe:'Acta del',ampliarFoto:'Ampliar foto',fotos:'fotos',toque:'toque para ampliar',irmaosEnv:'Hermanos de la Logia involucrados',leia:'Lea la historia completa',leiaIrm:' y los Hermanos involucrados',fonte:'Fuente',ctxHist:'Contexto histórico',
+fechar:'Cerrar',fotoAnt:'Foto anterior',fotoProx:'Foto siguiente',foto:'Foto',nenhumaHist:'Ninguna acta histórica en este año.',categoria:'Categoría',
+atasLead:'Busque por tema, nombre o fecha. Toque un acta para leer el resumen y la transcripción completa, hecha <i>ipsis litteris</i> a partir de los libros originales.',
+atasPh:'Ej.: abolição, Rui Barbosa, eleição, 1932',buscarAtas:'Buscar actas',decada:'Década',todasDec:'Todas las décadas',todasCat:'Todas las categorías',cat3:'Históricas',cat2:'Útiles',cat1:'Rutina',
+transcricao:'Transcripción',comSem:'Con o sin transcripción',soTx:'Solo transcritas',mais:'Mostrar más',semTx:'sin transcripción',
+admLead:'Gestiones de la Logia reconstruidas a partir de las actas y las firmas; cuando no hay actas, vale el Venerable de la placa de la Logia. Toque el año para ver la gestión en la línea de tiempo.',
+thGestao:'Gestión',thVen:'Venerable',thV1:'1er Vigilante',thV2:'2º Vigilante',thOr:'Orador',thSec:'Secretario',thTes:'Tesorero',placa:'placa',atasConf:'actas',
+memLead:'Personas identificadas en las actas y en los libros de asistencia, en la placa del Sesquicentenario (2018) y en el Cuadro de Obreros del GOSP (2026), con el primer y el último registro, cargos e hitos (iniciación, afiliación, fallecimiento). Para ver el cuadro actual, elija la situación “Miembro activo (2026)”. Los nombres se muestran como aparecen en los documentos; grafías distintas pueden ser la misma persona.',
+buscarNome:'Buscar nombre',todasSit:'Todas las situaciones',thNome:'Nombre',thSit:'Situación',thPer:'Período',thCargos:'Cargos',thMarcos:'Hitos',pessoa:'persona',pessoas:'personas',tambem:'también',
+sedesH:'Sedes de la Logia',sedesLead:'Las direcciones donde se reunió la Logia, según las actas. Algunos períodos aún no tienen dirección identificada en el acervo.',hoje:'Hoy',verLinha:'Ver en la línea de tiempo',
+alemLead:'Acciones y acontecimientos de la Logia América que no aparecen en las actas del acervo: las primeras décadas narradas por la historia tradicional de la Logia y las iniciativas recientes, como el Instituto Herdeiros do Futuro, el SCORB y las fiestas de la familia masónica. Abra cada elemento para leer la historia completa y ver los Hermanos involucrados y las fotos. Cada elemento indica la fuente.',
+pagina:'página',imgMiss:'Imagen de esta página aún no disponible',ampliar:'Ampliar',facsimile:'Facsímil',facsimileAmp:'Facsímil ampliado',fecharZoom:'Cerrar ampliación',
+ataCat3:'Acta histórica',ataCat2:'Acta útil',ataCat1:'Acta de rutina',presidiu:'Presidió',sede:'Sede',temas:'Temas',livro:'Libro',resumo:'Resumen',porQue:'Por qué es histórica',comoLer:'Cómo leer el acta',
+manuscrito:'Manuscrito original',ladoALado:'Lado a lado',carregTx:'Cargando la transcripción…',naoTx:'Esta acta aún no ha sido transcrita. El resumen de arriba proviene del índice del acervo.',
+ataAnt:'Acta anterior',ataProx:'Acta siguiente',verAno:'Ver {y} en la línea de tiempo',pgNote:'Imágenes en escala de grises, reducidas a partir de la digitalización de los libros.',
+erroTx:'No fue posible cargar la transcripción ahora. Intente abrir el acta de nuevo.',erroBoot:'No fue posible cargar el acervo. Recargue la página.',sessao:'Sesión',
+langNote:'Los resúmenes del índice y las transcripciones de las actas se muestran en el portugués original. Los textos de la línea de tiempo, el contexto histórico y “Más allá de las actas” están traducidos.',idioma:'Idioma'},
+en:{logoAlt:'Seal of the Aug∴ Resp∴ Ben∴ Gr∴ Benf∴ Cent∴ América Lodge',eyebrow:'América Masonic Lodge No. 189 · São Paulo, Brazil',h1:'The history of América Lodge, <em>session by session</em>',
+heroLead:'From 1868 to the present: the Lodge’s minutes side by side with the history of Brazil and the world. Pick a decade, open a year and read each set of minutes in the original manuscript and in a faithful transcription.',
+kiosk:'Kiosk mode',navAria:'Sections',navLinha:'Timeline',navAtas:'Minutes',navAdm:'Worshipful Masters and officers',navMem:'Members',navSedes:'Meeting places',navAlem:'Beyond the minutes',
+loading:'Loading the archive…',footer1:'América Masonic Lodge 189 · Rua Apeninos, 515 · São Paulo, Brazil',footer2:'Portal draft · content under review',
+stAtas:'minutes catalogued',stTx:'minutes fully transcribed',stVen:'Worshipful Masters on the plaque',stMem:'members identified',stSedes:'addresses',
+decadas:'Decades',ataN:'record',atasN:'records',mostrar:'Show:',soHist:'Historic minutes only',laneCtx:'Brazil and the world',laneAno:'Year',laneLoja:'América Lodge',gap:'nothing recorded in the archive or the chronology',
+notice1976:'<b>Minutes from 1976 onwards:</b> not yet added to the digital archive. The Lodge is shown through the Worshipful Masters on the plaque; minutes for this period will be added.',
+posse:'Installation',gestao:'term',novaSede:'New meeting place',ver:'Show',ocultar:'Hide',hist1:'historic',histN:'historic',venAbbr:'W∴M∴',
+ataDe:'Minutes of',ampliarFoto:'Enlarge photo',fotos:'photos',toque:'tap to enlarge',irmaosEnv:'Lodge Brethren involved',leia:'Read the full story',leiaIrm:' and the Brethren involved',fonte:'Source',ctxHist:'Historical context',
+fechar:'Close',fotoAnt:'Previous photo',fotoProx:'Next photo',foto:'Photo',nenhumaHist:'No historic minutes this year.',categoria:'Category',
+atasLead:'Search by subject, name or date. Tap a record to read its summary and the full transcription, made <i>ipsis litteris</i> from the original books.',
+atasPh:'e.g. abolição, Rui Barbosa, eleição, 1932',buscarAtas:'Search the minutes',decada:'Decade',todasDec:'All decades',todasCat:'All categories',cat3:'Historic',cat2:'Useful',cat1:'Routine',
+transcricao:'Transcription',comSem:'With or without transcription',soTx:'Transcribed only',mais:'Show more',semTx:'not transcribed',
+admLead:'Lodge administrations reconstructed from the minutes and signatures; where there are no minutes, the Worshipful Master on the Lodge plaque is shown. Tap a year to see the term on the timeline.',
+thGestao:'Term',thVen:'Worshipful Master',thV1:'Senior Warden',thV2:'Junior Warden',thOr:'Orator',thSec:'Secretary',thTes:'Treasurer',placa:'plaque',atasConf:'minutes',
+memLead:'People identified in the minutes and attendance books, on the Sesquicentennial plaque (2018) and in the GOSP roll of members (2026), with first and last record, offices and milestones (initiation, affiliation, death). To see the current roll, choose the status “Active member (2026)”. Names appear as written in the documents; different spellings may be the same person.',
+buscarNome:'Search name',todasSit:'All statuses',thNome:'Name',thSit:'Status',thPer:'Period',thCargos:'Offices',thMarcos:'Milestones',pessoa:'person',pessoas:'people',tambem:'also',
+sedesH:'Meeting places of the Lodge',sedesLead:'The addresses where the Lodge met, according to the minutes. Some periods have no address identified in the archive yet.',hoje:'Today',verLinha:'See on the timeline',
+alemLead:'Actions and events of América Lodge that do not appear in the archived minutes: the early decades told by the Lodge’s traditional history and recent initiatives such as the Instituto Herdeiros do Futuro, SCORB and the celebrations of the Masonic family. Open each item to read the full story and see the Brethren involved and the photos. Each item gives its source.',
+pagina:'page',imgMiss:'Image of this page not yet available',ampliar:'Enlarge',facsimile:'Facsimile',facsimileAmp:'Enlarged facsimile',fecharZoom:'Close zoom',
+ataCat3:'Historic minutes',ataCat2:'Useful minutes',ataCat1:'Routine minutes',presidiu:'Presided',sede:'Meeting place',temas:'Topics',livro:'Book',resumo:'Summary',porQue:'Why it is historic',comoLer:'How to read the minutes',
+manuscrito:'Original manuscript',ladoALado:'Side by side',carregTx:'Loading the transcription…',naoTx:'These minutes have not been transcribed yet. The summary above comes from the archive index.',
+ataAnt:'Previous minutes',ataProx:'Next minutes',verAno:'See {y} on the timeline',pgNote:'Greyscale images, reduced from the scans of the books.',
+erroTx:'The transcription could not be loaded right now. Try opening the minutes again.',erroBoot:'The archive could not be loaded. Please reload the page.',sessao:'Session',
+langNote:'Index summaries and transcriptions of the minutes are shown in the original Portuguese. Texts on the timeline, historical context and “Beyond the minutes” are translated.',idioma:'Language'}};
+const ESFX={es:{'Brasil':'Brasil','São Paulo':'São Paulo','Mundo':'Mundo','Maçonaria':'Masonería'},en:{'Brasil':'Brazil','São Paulo':'São Paulo','Mundo':'World','Maçonaria':'Freemasonry'}};
+const TEMAX={es:{'Abolição':'Abolición','Cidadania':'Ciudadanía','Cultura e educação':'Cultura y educación','Filantropia':'Filantropía','Fraternidade':'Fraternidad','Fundação':'Fundación','Guerra e paz':'Guerra y paz','Imprensa':'Prensa','Institucional':'Institucional','Maçonaria':'Masonería','Memória':'Memoria','Política':'Política','República':'República','Rito Brasileiro':'Rito Brasileño','Sede':'Sede','Sesquicentenário':'Sesquicentenario','Sociedade':'Sociedad'},
+en:{'Abolição':'Abolition','Cidadania':'Citizenship','Cultura e educação':'Culture and education','Filantropia':'Philanthropy','Fraternidade':'Fraternity','Fundação':'Foundation','Guerra e paz':'War and peace','Imprensa':'Press','Institucional':'Institutional','Maçonaria':'Freemasonry','Memória':'Memory','Política':'Politics','República':'Republic','Rito Brasileiro':'Brazilian Rite','Sede':'Meeting place','Sesquicentenário':'Sesquicentennial','Sociedade':'Society'}};
+const SITX={es:{'Candidato/profano':'Candidato/profano','Citado (vínculo a confirmar)':'Citado (vínculo por confirmar)','Ex-membro (desligado)':'Exmiembro (dado de baja)','Ex-membro (ex-offício)':'Exmiembro (ex officio)','Ex-membro (quite placet)':'Exmiembro (quite placet)','Membro':'Miembro','Membro (falecido)':'Miembro (fallecido)','Membro (quadro 2026)':'Miembro (cuadro 2026)','Membro ativo (2026)':'Miembro activo (2026)','Membro irregular (2026)':'Miembro irregular (2026)','Membro licenciado (2026)':'Miembro con licencia (2026)','Membro suspenso (2026)':'Miembro suspendido (2026)','Visitante (outra Loja)':'Visitante (otra Logia)'},
+en:{'Candidato/profano':'Candidate (non-Mason)','Citado (vínculo a confirmar)':'Mentioned (link to be confirmed)','Ex-membro (desligado)':'Former member (removed)','Ex-membro (ex-offício)':'Former member (ex officio)','Ex-membro (quite placet)':'Former member (demitted)','Membro':'Member','Membro (falecido)':'Member (deceased)','Membro (quadro 2026)':'Member (2026 roll)','Membro ativo (2026)':'Active member (2026)','Membro irregular (2026)':'Irregular member (2026)','Membro licenciado (2026)':'Member on leave (2026)','Membro suspenso (2026)':'Suspended member (2026)','Visitante (outra Loja)':'Visitor (another Lodge)'}};
+const CONFX={es:{'alta':'alta','média':'media','baixa':'baja'},en:{'alta':'high','média':'medium','baixa':'low'}};
+const SEDESX={
+es:[['Casa alquilada','Dirección no identificada; el 31/03/1875 el propietario exige la entrega por amenaza de ruina'],['Templo propio (inaugurado el 06/02/1877)','Compartido con las Logias Humildade y 7 de Setembro; dirección por confirmar'],['Rua 7 de Abril','Fiestas en el Templo Noble de la Rua Tabatinguera'],['Rua Xavier de Toledo, 52','Templo de la Logia Itália'],['Dos sedes durante la escisión','Facción fiel al GOB: Rua Carlos Gomes, 50 y Rua do Thesouro, 3. Facción del Gr∴ Or∴ de S. Paulo: Rua Xavier de Toledo, 52'],['Rua Xavier de Toledo, 52',''],['Rua Conde do Pinhal, 14-16','Antes, de abril a julio de 1926, Rua José Bonifácio, 39-A'],['Praça da Sé, 26 (Palacete Piratininga)',''],['Rua Barão de Tabatinguera, 37','Primera sesión el 28/10/1936'],['Rua Tabatinguera, 165',''],['Rua São Joaquim, 457','Edificio Sede del GOSP'],['Santo Amaro, Rua Um nº 69','Templo de la Logia Francisco Glicério'],['Santo Amaro, nº 147','Nombre de la calle por confirmar'],['Rua Apeninos, 515','Sede actual, Templo Julio Chagas do Nascimento, en el barrio de Paraíso; también sede del Instituto Herdeiros do Futuro y del SCORB']],
+en:[['Rented house','Address not identified; on 31/03/1875 the owner demands the house back as it threatens to collapse'],['Own temple (inaugurated on 06/02/1877)','Shared with the Humildade and 7 de Setembro Lodges; address to be confirmed'],['Rua 7 de Abril','Celebrations in the Noble Temple on Rua Tabatinguera'],['Rua Xavier de Toledo, 52','Temple of Loja Itália'],['Two meeting places during the split','Faction loyal to the GOB: Rua Carlos Gomes, 50 and Rua do Thesouro, 3. Faction of the Grand Orient of São Paulo: Rua Xavier de Toledo, 52'],['Rua Xavier de Toledo, 52',''],['Rua Conde do Pinhal, 14-16','Before that, from April to July 1926, Rua José Bonifácio, 39-A'],['Praça da Sé, 26 (Palacete Piratininga)',''],['Rua Barão de Tabatinguera, 37','First session on 28/10/1936'],['Rua Tabatinguera, 165',''],['Rua São Joaquim, 457','GOSP headquarters building'],['Santo Amaro, Rua Um nº 69','Temple of Loja Francisco Glicério'],['Santo Amaro, nº 147','Street name to be confirmed'],['Rua Apeninos, 515','Current home, Julio Chagas do Nascimento Temple, in the Paraíso district; also home of the Instituto Herdeiros do Futuro and of SCORB']]};
+function t(k){return (UI[LANG]&&UI[LANG][k]!==undefined&&UI[LANG][k]!=='')?UI[LANG][k]:(UI.pt[k]??k)}
+const T_=t;
+const num=n=>Number(n).toLocaleString(LANG==='en'?'en-US':LANG==='es'?'es-ES':'pt-BR');
+const esfL=k=>(ESFX[LANG]||{})[k]||k;
+const temaL=k=>(TEMAX[LANG]||{})[k]||k;
+const sitL=k=>(SITX[LANG]||{})[k]||k;
+const confL=k=>(CONFX[LANG]||{})[k]||k;
+function sedeL(s){if(LANG==='pt')return s;const i=SEDES.indexOf(s),x=(SEDESX[LANG]||[])[i];return x?{...s,t:x[0],d:x[1]}:s}
+function eraL(e){const x=TR.eras[e.de+'|'+e.nome];return x?{...e,...x}:e}
+function evL(e){const x=TR.eventos[e.ano+'|'+e.titulo];return x?{...e,...x}:e}
+function mL(m){
+  const x=TR.marcos[m.id||(m.ano+'|'+m.titulo)];if(!x||LANG==='pt')return m;
+  const o={...m};
+  for(const k of ['titulo','texto','contexto'])if(x[k])o[k]=x[k];
+  if(m.detalhe&&x.detalhe)o.detalhe=m.detalhe.map((p,i)=>x.detalhe[i]||p);
+  if(m.irmaos&&x.papeis)o.irmaos=m.irmaos.map(([n,r],i)=>[n,x.papeis[i]||r]);
+  if(m.fotos&&x.fotos)o.fotos=m.fotos.map((f,i)=>({...f,l:x.fotos[i]||f.l}));
+  if(m.video&&x.video)o.video={...m.video,l:x.video};
+  return o;
+}
+const langNote=()=>LANG==='pt'?'':`<p class="lang-note">${t('langNote')}</p>`;
+function applyStatic(){
+  document.documentElement.lang=LANG==='pt'?'pt-BR':LANG;
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
+  document.querySelectorAll('[data-i18n-alt]').forEach(e=>e.alt=t(e.dataset.i18nAlt));
+  document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.i18nAria)));
+  document.querySelectorAll('.langs [data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===LANG));
+  document.querySelector('.langs')?.setAttribute('aria-label',t('idioma'));
+  document.title=LANG==='en'?'América Lodge Memory':LANG==='es'?'Memoria de la Logia América':'Memória da Loja América';
+}
+async function loadTR(){TR={marcos:{},eras:{},eventos:{}};if(LANG!=='pt'){try{TR=await getJ(`data/i18n/${LANG}.json`)}catch(e){console.warn('sem tradução',e)}}}
+async function initLang(){
+  let l=new URLSearchParams(location.search).get('lang')||'';
+  if(!LANGS.includes(l)){try{l=localStorage.getItem('lang')||''}catch(e){}}
+  if(!LANGS.includes(l)){const n=(navigator.language||'pt').slice(0,2).toLowerCase();l=LANGS.includes(n)?n:'pt'}
+  LANG=l;await loadTR();applyStatic();
+  document.querySelector('.langs')?.addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(b&&b.dataset.lang!==LANG)setLang(b.dataset.lang)});
+}
+async function setLang(l){
+  LANG=l;try{localStorage.setItem('lang',l)}catch(e){}
+  await loadTR();applyStatic();
+  if(S.atas.length){const y=window.scrollY;stats();S.view=null;const h=location.hash;route();if(!/^#ano-/.test(h))window.scrollTo(0,y)}
+}
+
+
+async function boot(){
+  const [atas,adm,mem,marcos,ctx]=await Promise.all([
+    getJ('data/atas.json'),getJ('data/adm.json'),getJ('data/membros.json'),
+    getJ('data/marcos.json').catch(()=>[]),getJ('data/contexto.json').catch(()=>({eras:[],eventos:[]}))]);
+  getJ('data/img.json').then(j=>S.img=j).catch(()=>{});
+  S.atas=atas; atas.forEach(a=>{S.byId[a.i]=a;(S.byYear[a.y]??=[]).push(a)});
+  S.adm=adm.r.map(r=>{const m=String(r[0]).match(/(\d{4})\D+(\d{4})/);return{g:r[0],de:m?+m[1]:0,ate:m?+m[2]:0,ven:r[1],v1:r[2],v2:r[3],or:r[4],sec:r[5],tes:r[6],out:r[7],obs:r[11],conf:r[12],placa:r[10]}}).filter(g=>g.de);
+  S.memH=mem.h; S.mem=mem.r;
+  S.marcos=marcos; S.ctx=ctx;
+  stats(); route();
+}
+function stats(){
+  const tx=S.atas.filter(a=>a.tx.length).length;
+  const vens=new Set(S.adm.map(g=>cleanName(g.placa||g.ven)).filter(Boolean)).size;
+  const memb=S.mem.filter(r=>r[1]==='Membro').length;
+  $('#stats').innerHTML=[[num(S.atas.length),t('stAtas')],[num(tx),t('stTx')],[vens,t('stVen')],[num(memb),t('stMem')],[SEDES.length,t('stSedes')]]
+    .map(([n,t])=>`<div class="stat"><b>${n}</b><span>${t}</span></div>`).join('');
+}
+function gestaoStarting(y){return S.adm.filter(g=>g.de===y)}
+function venOf(y){const g=S.adm.filter(g=>g.de<=y&&y<g.ate||g.de===y).pop();return g?cleanName(g.ven):''}
+
+/* ---------- Linha do tempo ---------- */
+function yearContent(y){
+  const ev=(S.ctx.eventos||[]).filter(e=>e.ano===y&&S.lanes[e.esfera]);
+  const mc=S.marcos.filter(m=>m.ano===y);
+  const at=S.byYear[y]||[];
+  const era=(S.ctx.eras||[]).filter(e=>e.de===y);
+  const ges=gestaoStarting(y);
+  const sd=SEDES.filter(s=>s.de===y);
+  return{ev,mc,at,era,ges,sd,any:ev.length||mc.length||at.length||ges.length||sd.length||era.length};
+}
+function viewLinha(){
+  const decs=[];for(let d=Math.floor(FIRST/10)*10;d<=LAST;d+=10)decs.push(d);
+  const dens=d=>{let n=0;for(let y=d;y<d+10;y++)n+=(S.byYear[y]||[]).length;return n};
+  const maxd=Math.max(...decs.map(dens),1);
+  let h=`<div class="ruler"><div class="wrap" role="tablist" aria-label="${t('decadas')}">${decs.map(d=>`<button data-dec="${d}" title="${dens(d)} ${t('atasN')}">${d}<span class="bar" style="opacity:${.15+.85*dens(d)/maxd}"></span></button>`).join('')}</div></div>`;
+  h+=`<div class="wrap"><div class="filters"><span>${t('mostrar')}</span>${Object.keys(S.lanes).map(k=>`<label class="chip-t"><input type="checkbox" data-lane="${esc(k)}" ${S.lanes[k]?'checked':''}><span class="dot" style="background:${ESF[k]}"></span>${esc(esfL(k))}</label>`).join('')}
+  <label class="chip-t"><input type="checkbox" id="onlyhist" ${S.onlyHist?'checked':''}><span class="cat c3"></span>${t('soHist')}</label></div>
+  <div class="lanes-head"><div>${t('laneCtx')}</div><div>${t('laneAno')}</div><div>${t('laneLoja')}</div></div><div id="tl">`;
+  for(const d of decs){
+    h+=`<section class="decade" id="dec-${d}"><h2>${d}</h2>`;
+    let gap=null;
+    const flush=()=>{if(gap){h+=`<div class="gap">${gap[0]===gap[1]?gap[0]:gap[0]+'–'+gap[1]} · ${t('gap')}</div>`;gap=null}};
+    for(let y=Math.max(d,FIRST);y<d+10&&y<=LAST;y++){
+      const c=yearContent(y);
+      if(!c.any){gap?gap[1]=y:gap=[y,y];continue}
+      flush();
+      c.era.forEach(e0=>{const e=eraL(e0);h+=`<div class="era"><div class="span">${e.de}–${e.ate}</div><h3>${esc(e.nome)}</h3><p>${esc(e.texto)}</p></div>`});
+      if(y===1976)h+=`<div class="notice">${t('notice1976')}</div>`;
+      h+=yearRow(y,c);
+    }
+    flush(); h+=`</section>`;
+  }
+  h+=`</div></div>`;
+  return h;
+}
+function yearRow(y,c){
+  const sd=sedeOf(y), ven=venOf(y);
+  const at=S.onlyHist?c.at.filter(a=>a.c===3):c.at;
+  const n3=c.at.filter(a=>a.c===3).length;
+  const ctx=c.ev.map(e0=>{const e=evL(e0);return `<div class="ev"><span class="tag" style="color:${ESF[e.esfera]||'var(--muted)'}">${esc(esfL(e.esfera))}${e.data?' · '+esc(e.data):''}</span><h4>${esc(e.titulo)}</h4><p>${esc(e.texto)}</p></div>`}).join('');
+  let loja='';
+  const meta=[];
+  c.ges.forEach(g=>meta.push(`<span class="pill"><b>${t('posse')}</b>${esc(cleanName(g.ven))} · ${t('gestao')} ${esc(g.g)}</span>`));
+  c.sd.forEach(s=>meta.push(`<span class="pill"><b>${t('novaSede')}</b>${esc(sedeL(s).t)}</span>`));
+  if(meta.length)loja+=`<div class="meta-line">${meta.join('')}</div>`;
+  loja+=c.mc.map(marcoCard).join('');
+  if(c.at.length){
+    const open=S.openYears.has(y);
+    loja+=`<button class="atas-btn" data-year="${y}" aria-expanded="${open}">${t(open?'ocultar':'ver')} ${c.at.length} ${t(c.at.length>1?'atasN':'ataN')}${n3?` · <span class="n3">${n3} ${t(n3>1?'histN':'hist1')}</span>`:''}</button>`;
+    if(open)loja+=atasList(at);
+  }
+  return `<div class="yr" id="ano-${y}"><div class="yr-ctx">${ctx}</div><div class="yr-n"><b>${y}</b><small>${ven?t('venAbbr')+' '+esc(ven):''}${sd?'<br>'+esc(sedeL(sd).t):''}</small></div><div class="yr-loja">${loja}</div></div>`;
+}
+function marcoCard(m0){
+  const mi=S.marcos.indexOf(m0); const m=mL(m0);
+  const links=(m.atas||[]).filter(i=>S.byId[i]).map(i=>`<button class="lk" data-ata="${i}">${t('ataDe')} ${esc(S.byId[i].d)}</button>`).join('');
+  const fotos=(m.fotos||[]).length?`<div class="fotos">${m.fotos.map((f,k)=>`<button class="foto" data-foto="${mi}|${k}" aria-label="${t('ampliarFoto')}: ${esc(f.l)}"><img src="${esc(f.f)}" alt="${esc(f.l)}" loading="lazy" decoding="async"></button>`).join('')}</div>`+`<div class="fotos-n">${m.fotos.length>1?m.fotos.length+' '+t('fotos')+' · ':''}${t('toque')}</div>`:'';
+  const vid=m.video?`<figure class="vid"><video controls preload="none" playsinline poster="${esc(m.video.p)}" src="${esc(m.video.f)}"></video><figcaption>${esc(m.video.l)}</figcaption></figure>`:'';
+  const irm=(m.irmaos||[]).length?`<div class="irmaos"><h4>${t('irmaosEnv')}</h4><ul>${m.irmaos.map(([n,r])=>`<li><b>${esc(n)}</b>${r?` — ${esc(r)}`:''}</li>`).join('')}</ul></div>`:'';
+  const det=(m.detalhe||[]).length?`<details class="det"><summary>${t('leia')}${(m.irmaos||[]).length?t('leiaIrm'):''}</summary>${m.detalhe.map(t=>`<p>${esc(t)}</p>`).join('')}${irm}</details>`:'';
+  const src=m.fonte?`<div class="fonte">${t('fonte')}: ${m.link?`<a href="${esc(m.link)}" target="_blank" rel="noopener">${esc(m.fonte)}</a>`:esc(m.fonte)}${m.fonte2?` · <a href="${esc(m.fonte2[1])}" target="_blank" rel="noopener">${esc(m.fonte2[0])}</a>`:''}</div>`:'';
+  return `<article class="marco${m.fora?' fora':''}"><div class="when">${esc(m.data||m.ano)} · ${esc(temaL(m.tema||''))}${m.fora?` <span class="fora-tag">${t('navAlem')}</span>`:''}</div><h3>${esc(m.titulo)}</h3><p>${esc(m.texto)}</p>${fotos}${vid}${det}${m.contexto?`<details><summary>${t('ctxHist')}</summary><p>${esc(m.contexto)}</p></details>`:''}${links?`<div class="links" style="margin-top:8px">${links}</div>`:''}${src}</article>`;
+}
+function openFoto(mi,k){
+  const m0=S.marcos[mi];if(!m0||!m0.fotos)return;const m=mL(m0);const n=m.fotos.length;k=(k+n)%n;const f=m.fotos[k];
+  $('#lbx')?.remove();
+  document.body.insertAdjacentHTML('beforeend',`<div class="lbx" id="lbx" role="dialog" aria-modal="true" aria-label="${esc(m.titulo)}" data-mi="${mi}" data-k="${k}"><div class="lbx-top"><span>${esc(m.titulo)} · ${k+1}/${n}</span><button class="lbx-x" data-lbx="x" aria-label="${t('fechar')}">✕</button></div><div class="lbx-img">${n>1?`<button class="lbx-nav" data-lbx="-" aria-label="${t('fotoAnt')}">‹</button>`:''}<img src="${esc(f.f)}" alt="${esc(f.l)}">${n>1?`<button class="lbx-nav" data-lbx="+" aria-label="${t('fotoProx')}">›</button>`:''}</div><div class="lbx-cap">${esc(f.l)}${f.c?` <span>${t('foto')}: ${esc(f.c)}</span>`:''}</div></div>`);
+  $('#lbx .lbx-x').focus();
+}
+function stepFoto(d){const L=$('#lbx');if(!L)return;openFoto(+L.dataset.mi,+L.dataset.k+d)}
+function atasList(list){
+  if(!list.length)return `<div class="alist"><span class="count">${t('nenhumaHist')}</span></div>`;
+  return `<div class="alist">${list.map(a=>`<button class="arow" data-ata="${a.i}"><span class="dt"><span class="cat c${a.c}" title="${t('categoria')} ${a.c}"></span>${esc(a.d)}</span><span class="rs"><b>${esc(tipo(a))}</b> — ${esc(a.r)}</span></button>`).join('')}</div>`;
+}
+function bindLinha(){
+  $('.ruler').addEventListener('click',e=>{const b=e.target.closest('[data-dec]');if(b)$('#dec-'+b.dataset.dec)?.scrollIntoView({behavior:'smooth'})});
+  document.querySelectorAll('[data-lane]').forEach(i=>i.onchange=()=>{S.lanes[i.dataset.lane]=i.checked;rerenderTL()});
+  $('#onlyhist').onchange=e=>{S.onlyHist=e.target.checked;rerenderTL()};
+  $('#tl').addEventListener('click',e=>{
+    const b=e.target.closest('.atas-btn');
+    if(b){const y=+b.dataset.year;S.openYears.has(y)?S.openYears.delete(y):S.openYears.add(y);const row=$('#ano-'+y);row.outerHTML=yearRow(y,yearContent(y));return}
+  });
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){document.querySelectorAll('.ruler button').forEach(b=>b.classList.toggle('on',b.dataset.dec===en.target.id.slice(4)))}}),{rootMargin:'-140px 0px -70% 0px'});
+  document.querySelectorAll('.decade').forEach(s=>io.observe(s));
+}
+function rerenderTL(){const y=window.scrollY;$('#main').innerHTML=viewLinha();bindLinha();window.scrollTo(0,y)}
+
+/* ---------- Atas ---------- */
+function viewAtas(){
+  const decs=[...new Set(S.atas.map(a=>Math.floor(a.y/10)*10))].sort();
+  return `<div class="wrap view"><h2>${t('navAtas')}</h2><p class="lead">${t('atasLead')}</p>${langNote()}
+  <div class="search"><input id="q" type="search" placeholder="${t('atasPh')}" aria-label="${t('buscarAtas')}">
+  <select id="fd" aria-label="${t('decada')}"><option value="">${t('todasDec')}</option>${decs.map(d=>`<option>${d}</option>`).join('')}</select>
+  <select id="fc" aria-label="${t('categoria')}"><option value="">${t('todasCat')}</option><option value="3">${t('cat3')}</option><option value="2">${t('cat2')}</option><option value="1">${t('cat1')}</option></select>
+  <select id="ft" aria-label="${t('transcricao')}"><option value="">${t('comSem')}</option><option value="1">${t('soTx')}</option></select></div>
+  <div class="count" id="cnt"></div><div class="res" id="res"></div><button class="more" id="more" hidden>${t('mais')}</button></div>`;
+}
+const norm=s=>String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function bindAtas(){
+  let lim=60;const run=()=>{
+    const q=norm($('#q').value.trim()),d=$('#fd').value,c=$('#fc').value,t=$('#ft').value;
+    const r=S.atas.filter(a=>(!d||Math.floor(a.y/10)*10==d)&&(!c||a.c==c)&&(!t||a.tx.length)&&(!q||norm(a.d+' '+a.tp+' '+a.r+' '+a.h+' '+a.tt+' '+a.v+' '+a.p).includes(q)));
+    $('#cnt').textContent=`${num(r.length)} ${T_(r.length===1?'ataN':'atasN')}`;
+    $('#res').innerHTML=r.slice(0,lim).map(a=>`<button class="arow" data-ata="${a.i}"><span class="dt"><span class="cat c${a.c}"></span>${esc(a.d)}</span><span class="rs"><b>${esc(tipo(a))}</b> — ${esc(a.r)}${a.tx.length?'':` <i>(${T_('semTx')})</i>`}</span></button>`).join('');
+    $('#more').hidden=r.length<=lim;
+  };
+  ['q','fd','fc','ft'].forEach(id=>$('#'+id).addEventListener('input',()=>{lim=60;run()}));
+  $('#more').onclick=()=>{lim+=120;run()};run();
+}
+
+/* ---------- Administração ---------- */
+function viewAdm(){
+  const rows=S.adm.slice().sort((a,b)=>a.de-b.de);
+  return `<div class="wrap view"><h2>${t('navAdm')}</h2><p class="lead">${t('admLead')}</p>
+  <div class="tblwrap"><table><thead><tr>${['thGestao','thVen','thV1','thV2','thOr','thSec','thTes','fonte'].map(k=>`<th>${t(k)}</th>`).join('')}</tr></thead><tbody>
+  ${rows.map(g=>`<tr><td class="n"><a href="#ano-${g.de}">${esc(g.g)}</a></td><td><b>${esc(cleanName(g.ven))}</b></td><td>${esc(cleanName(g.v1))}</td><td>${esc(cleanName(g.v2))}</td><td>${esc(cleanName(g.or))}</td><td>${esc(cleanName(g.sec))}</td><td>${esc(cleanName(g.tes))}</td><td><span class="conf">${g.conf==='placa'?t('placa'):t('atasConf')+' · '+esc(confL(g.conf))}</span></td></tr>`).join('')}
+  </tbody></table></div></div>`;
+}
+
+/* ---------- Membros ---------- */
+function viewMem(){
+  return `<div class="wrap view"><h2>${t('navMem')}</h2><p class="lead">${t('memLead')}</p>${langNote()}
+  <div class="search"><input id="mq" type="search" placeholder="${t('buscarNome')}" aria-label="${t('buscarNome')}">
+  <select id="ms" aria-label="${t('thSit')}"><option value="">${t('todasSit')}</option>${[...new Set(S.mem.map(r=>r[1]))].map(s=>`<option value="${esc(s)}">${esc(sitL(s))}</option>`).join('')}</select></div>
+  <div class="count" id="mcnt"></div><div class="tblwrap"><table><thead><tr>${['thNome','thSit','thPer','thCargos','thMarcos'].map(k=>`<th>${t(k)}</th>`).join('')}</tr></thead><tbody id="mres"></tbody></table></div><button class="more" id="mmore" hidden>${t('mais')}</button></div>`;
+}
+function bindMem(){
+  let lim=80;const run=()=>{
+    const q=norm($('#mq').value.trim()),s=$('#ms').value;
+    const r=S.mem.filter(x=>(!s||x[1]===s)&&(!q||norm(x[0]+' '+(x[10]||'')).includes(q)));
+    $('#mcnt').textContent=`${num(r.length)} ${t(r.length===1?'pessoa':'pessoas')}`;
+    $('#mres').innerHTML=r.slice(0,lim).map(x=>`<tr><td><b>${esc(x[0])}</b>${x[10]?`<br><small style="color:var(--muted)">${t('tambem')}: ${esc(x[10])}</small>`:''}</td><td>${esc(sitL(x[1]))}</td><td class="n">${x[2]?`<a href="#ano-${x[2]}">${x[2]}</a>`:''}${x[3]&&x[3]!==x[2]?'–'+x[3]:''}</td><td>${esc(x[6])}</td><td>${esc(x[7])}</td></tr>`).join('');
+    $('#mmore').hidden=r.length<=lim;
+  };
+  ['mq','ms'].forEach(id=>$('#'+id).addEventListener('input',()=>{lim=80;run()}));
+  $('#mmore').onclick=()=>{lim+=200;run()};run();
+}
+
+/* ---------- Sedes ---------- */
+function viewSedes(){
+  return `<div class="wrap view"><h2>${t('sedesH')}</h2><p class="lead">${t('sedesLead')}</p>
+  <div class="sedes">${SEDES.map(s0=>{const s=sedeL(s0);return `<div class="sede"><div class="p">${s.de===2026?t('hoje'):s.de+(s.ate>s.de?'–'+s.ate:'')}</div><h3>${esc(s.t)}</h3>${s.d?`<div class="f">${esc(s.d)}</div>`:''}${s.de<2026?`<a href="#ano-${s.de}" class="f">${t('verLinha')}</a>`:''}</div>`}).join('')}</div></div>`;
+}
+
+/* ---------- Além das atas ---------- */
+function viewAlem(){
+  const L=S.marcos.filter(m=>m.fora);
+  return `<div class="wrap view"><h2>${t('navAlem')}</h2><p class="lead">${t('alemLead')}</p>
+  <div class="alem">${L.map(m=>`<div class="alem-item"><a class="alem-ano" href="#ano-${m.ano}">${m.ano}</a>${marcoCard(m)}</div>`).join('')}</div></div>`;
+}
+
+/* ---------- Leitor de ata ---------- */
+function pageFig(book,p){
+  const ix=S.img[book]?.[p];
+  const cap=`${esc(book)} · ${t('pagina')} ${p}`;
+  if(!ix)return `<figure class="pg pg-miss"><div>${t('imgMiss')}</div><figcaption>${cap}</figcaption></figure>`;
+  const [fn,y,h,H]=ix;
+  return `<figure class="pg"><button class="pg-frame" data-zoom="${esc(book)}|${p}" aria-label="${t('ampliar')} ${cap}" style="aspect-ratio:1000/${h}"><img src="img/${fn}" alt="${t('facsimile')}: ${cap}" loading="lazy" decoding="async" style="transform:translateY(-${(y/H*100).toFixed(4)}%)"></button><figcaption>${cap} · ${t('toque')}</figcaption></figure>`;
+}
+function getMode(){if(S.mode)return S.mode;let m='';try{m=localStorage.getItem('modo')||''}catch(e){}return m||(innerWidth>=980?'ambos':'trans')}
+function setMode(m){S.mode=m;try{localStorage.setItem('modo',m)}catch(e){}const sh=$('.sheet');if(!sh)return;sh.dataset.mode=m;sh.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m))}
+async function openAta(id){
+  const a=S.byId[id];if(!a)return;
+  const R=$('#reader');R.hidden=false;document.body.style.overflow='hidden';
+  const list=S.atas, ix=list.indexOf(a), has=a.tx.length>0, mode=has?getMode():'trans';
+  R.innerHTML=`<div class="sheet${has?' wide':''}" data-mode="${mode}" role="dialog" aria-modal="true" aria-label="${t('ataDe')} ${esc(a.d)}"><header><div><div class="eyebrow" style="color:var(--gold)">${t('ataCat'+a.c)}</div><h2>${t('ataDe')} ${esc(a.d)}</h2><div style="color:var(--muted);margin-top:4px">${esc(tipo(a))}</div></div><button class="close" aria-label="${t('fechar')}">✕</button></header>
+  ${langNote()}<dl class="kv">${a.v?`<dt>${t('thVen')}</dt><dd>${esc(a.v)}</dd>`:''}${a.p?`<dt>${t('presidiu')}</dt><dd>${esc(a.p)}</dd>`:''}${a.s?`<dt>${t('sede')}</dt><dd>${esc(a.s)}</dd>`:''}${a.tt?`<dt>${t('temas')}</dt><dd>${esc(a.tt)}</dd>`:''}<dt>${t('livro')}</dt><dd>${esc(a.lv)}</dd></dl>
+  <div class="box"><h4>${t('resumo')}</h4><p>${esc(a.r)}</p></div>${a.h?`<div class="box"><h4>${t('porQue')}</h4><p>${esc(a.h)}</p></div>`:''}
+  ${has?`<div class="modes" role="group" aria-label="${t('comoLer')}"><button data-mode="orig">${t('manuscrito')}</button><button data-mode="trans">${t('transcricao')}</button><button data-mode="ambos">${t('ladoALado')}</button></div>`:''}
+  <div class="doc"><div class="orig" id="origb"></div><div class="tx" id="txb">${has?t('carregTx'):`<h4>${t('transcricao')}</h4>${t('naoTx')}`}</div></div>
+  <div class="navrow"><button data-nav="${list[ix-1]?.i??''}" ${ix>0?'':'disabled'}>← ${t('ataAnt')}</button><a href="#ano-${a.y}" class="lk" style="align-self:center">${t('verAno').replace('{y}',a.y)}</a><button data-nav="${list[ix+1]?.i??''}" ${ix<list.length-1?'':'disabled'}>${t('ataProx')} →</button></div></div>`;
+  if(has)setMode(mode);
+  R.querySelector('.close').focus();
+  if(has){
+    try{
+      const dec=a.y<1900?'a':(a.y<1930?'b':'c'); const d=S.tx[dec]??=await getJ(`data/tx/t${dec}.json`);
+      if(S.byId[id]!==a||!$('#txb'))return;
+      $('#txb').innerHTML=a.tx.map((k,n)=>{const t=d[k];return t?`<h4>${T_('transcricao')}${a.tx.length>1?' '+(n+1):''} · ${esc(t.t)}</h4>${esc(t.x)}`:''}).join('\n\n');
+      $('#origb').innerHTML=`<h4>${T_('manuscrito')}</h4>`+a.tx.map(k=>{const t=d[k];const book=k.split('/')[0];return (t?.p||[]).map(p=>pageFig(book,p)).join('')}).join('')+`<p class="pg-note">${T_('pgNote')}</p>`;
+    }catch(e){$('#txb').textContent=T_('erroTx')}
+  }
+}
+function openZoom(book,p){
+  const ix=S.img[book]?.[p];if(!ix)return;const [fn,y,h,H]=ix;
+  const Z=document.createElement('div');Z.className='zoom';Z.id='zoom';Z.dataset.z='1';
+  Z.innerHTML=`<div class="zbar"><span>${esc(book)} · ${t('pagina')} ${p}</span><span><button data-z="-">−</button><button data-z="+">+</button><button data-z="x" aria-label="${t('fecharZoom')}">✕</button></span></div><div class="zscroll"><div class="zpage" style="aspect-ratio:1000/${h}"><img src="img/${fn}" alt="${t('facsimileAmp')}: ${esc(book)}, ${t('pagina')} ${p}" style="transform:translateY(-${(y/H*100).toFixed(4)}%)"></div></div>`;
+  document.body.appendChild(Z);Z.querySelector('[data-z="x"]').focus();
+}
+document.addEventListener('click',e=>{
+  const z=e.target.closest('[data-z]');
+  if(z&&$('#zoom')){const Z=$('#zoom');if(z.dataset.z==='x'){Z.remove();return}let k=+Z.dataset.z+(z.dataset.z==='+'?.5:-.5);k=Math.min(3,Math.max(1,k));Z.dataset.z=k;Z.querySelector('.zpage').style.width=(k*100)+'%';return}
+  const f=e.target.closest('[data-zoom]');if(f){const [b,p]=f.dataset.zoom.split('|');openZoom(b,+p);return}
+  const m=e.target.closest('.modes [data-mode]');if(m)setMode(m.dataset.mode);
+});
+function closeReader(){$('#zoom')?.remove();const R=$('#reader');R.hidden=true;R.innerHTML='';document.body.style.overflow=''}
+$('#reader').addEventListener('click',e=>{
+  if(e.target.id==='reader'||e.target.closest('.close'))return closeReader();
+  const n=e.target.closest('[data-nav]');if(n&&n.dataset.nav)return openAta(+n.dataset.nav);
+  if(e.target.closest('a[href^="#ano-"]'))closeReader();
+});
+document.addEventListener('keydown',e=>{if($('#lbx')){if(e.key==='Escape')$('#lbx').remove();else if(e.key==='ArrowRight')stepFoto(1);else if(e.key==='ArrowLeft')stepFoto(-1);return}if(e.key!=='Escape')return;if($('#zoom'))return $('#zoom').remove();if(!$('#reader').hidden)closeReader()});
+document.addEventListener('click',e=>{const L=e.target.closest('#lbx');if(L){const b=e.target.closest('[data-lbx]');if(b){b.dataset.lbx==='x'?L.remove():stepFoto(b.dataset.lbx==='+'?1:-1)}else if(!e.target.closest('img'))L.remove();return}const f=e.target.closest('[data-foto]');if(f){const [mi,k]=f.dataset.foto.split('|');openFoto(+mi,+k)}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-ata]');if(b&&!b.closest('#reader'))openAta(+b.dataset.ata)});
+
+/* ---------- Roteamento ---------- */
+const VIEWS={linha:[viewLinha,bindLinha],atas:[viewAtas,bindAtas],administracao:[viewAdm,()=>{}],membros:[viewMem,bindMem],sedes:[viewSedes,()=>{}],alem:[viewAlem,()=>{}]};
+function route(){
+  let h=location.hash.slice(1)||'linha', target=null;
+  if(/^ano-\d{4}$/.test(h)){target=h;h='linha';const y=+target.slice(4);if(S.byYear[y])S.openYears.add(y)}
+  if(!VIEWS[h])h='linha';
+  if(S.view!==h||target){$('#main').innerHTML=VIEWS[h][0]();VIEWS[h][1]();S.view=h}
+  document.querySelectorAll('.nav a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));
+  if(target){requestAnimationFrame(()=>$('#'+target)?.scrollIntoView())}else window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',()=>{if(S.atas.length)route()});
+
+/* ---------- Modo totem ---------- */
+let idle;const KIOSK_IDLE=180000;
+function setKiosk(on){
+  document.documentElement.classList.toggle('kiosk',on);$('#bt-kiosk').setAttribute('aria-pressed',on);
+  try{localStorage.setItem('kiosk',on?'1':'')}catch(e){}
+  armIdle();
+}
+function armIdle(){clearTimeout(idle);if(document.documentElement.classList.contains('kiosk'))idle=setTimeout(()=>{closeReader();if(location.hash&&location.hash!=='#linha')location.hash='linha';else{S.view=null;route()}},KIOSK_IDLE)}
+['pointerdown','keydown','scroll'].forEach(ev=>addEventListener(ev,armIdle,{passive:true}));
+$('#bt-kiosk').onclick=()=>setKiosk(!document.documentElement.classList.contains('kiosk'));
+try{if(localStorage.getItem('kiosk'))setKiosk(true)}catch(e){}
+
+initLang().then(boot).catch(e=>{$('#main').innerHTML=`<div class="wrap loading">${t('erroBoot')}</div>`;console.error(e)});
+</script>
+
+</body>
+</html>
