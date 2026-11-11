@@ -626,10 +626,10 @@ async function openAta(id){
   R.querySelector('.close').focus();
   if(has){
     try{
-      const dec=a.y<1900?'a':(a.y<1930?'b':'c'); const d=S.tx[dec]??=await getJ(`data/tx/t${dec}.json`);
+      const dec=a.y<1900?'a':(a.y<1930?'b':(a.y<1942?'c':'d')); const d=S.tx[dec]??=await getJ(`data/tx/t${dec}.json`);
       if(S.byId[id]!==a||!$('#txb'))return;
       $('#txb').innerHTML=a.tx.map((k,n)=>{const t=d[k];return t?`<h4>${T_('transcricao')}${a.tx.length>1?' '+(n+1):''} · ${esc(t.t)}</h4>${esc(t.x)}`:''}).join('\n\n');
-      $('#origb').innerHTML=`<h4>${T_('manuscrito')}</h4>`+a.tx.map(k=>{const t=d[k];const book=k.split('/')[0];return (t?.p||[]).map(p=>pageFig(book,p)).join('')}).join('')+`<p class="pg-note">${T_('pgNote')}</p>`;
+      $('#origb').innerHTML=`<h4>${T_('manuscrito')}</h4>`+a.tx.map(k=>{const t=d[k];const book=k.split('/')[0];return (t?.p||[]).map(p=>typeof p==='string'&&p.includes(':')?pageFig(...p.split(':')):pageFig(book,p)).join('')}).join('')+`<p class="pg-note">${T_('pgNote')}</p>`;
     }catch(e){$('#txb').textContent=T_('erroTx')}
   }
 }
