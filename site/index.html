@@ -257,6 +257,7 @@ footer .wrap{padding-block:18px;display:flex;flex-wrap:wrap;justify-content:spac
   <div class="wrap">
     <a href="#linha" data-i18n="navLinha">Linha do tempo</a>
     <a href="#atas" data-i18n="navAtas">Atas</a>
+    <a href="#presencas" data-i18n="navPres">Presenças</a>
     <a href="#administracao" data-i18n="navAdm">Veneráveis e administração</a>
     <a href="#membros" data-i18n="navMem">Membros</a>
     <a href="#sedes" data-i18n="navSedes">Sedes</a>
@@ -273,7 +274,7 @@ footer .wrap{padding-block:18px;display:flex;flex-wrap:wrap;justify-content:spac
 <script>
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const S={img:{},mode:null,atas:[],byId:{},byYear:{},marcos:[],ctx:{eras:[],eventos:[]},adm:[],mem:[],sedesT:[],tx:{},view:null,lanes:{"Brasil":1,"São Paulo":1,"Mundo":1,"Maçonaria":1},onlyHist:false,openYears:new Set()};
+const S={img:{},mode:null,atas:[],byId:{},byYear:{},marcos:[],ctx:{eras:[],eventos:[]},adm:[],mem:[],pres:null,sedesT:[],tx:{},view:null,lanes:{"Brasil":1,"São Paulo":1,"Mundo":1,"Maçonaria":1},onlyHist:false,openYears:new Set()};
 const FIRST=1868, LAST=2026;
 const ESF={"Brasil":"var(--br)","São Paulo":"var(--sp)","Mundo":"var(--mundo)","Maçonaria":"var(--maco)"};
 // Sedes com ano de início (da aba Sedes do índice)
@@ -311,7 +312,7 @@ notice1976:'<b>Atas de 1976 em diante:</b> ainda não incorporadas ao acervo dig
 posse:'Posse',gestao:'gestão',novaSede:'Nova sede',ver:'Ver',ocultar:'Ocultar',hist1:'histórica',histN:'históricas',venAbbr:'Ven∴',
 ataDe:'Ata de',ampliarFoto:'Ampliar foto',fotos:'fotos',toque:'toque para ampliar',irmaosEnv:'Irmãos da Loja envolvidos',leia:'Leia a história completa',leiaIrm:' e os Irmãos envolvidos',fonte:'Fonte',ctxHist:'Contexto histórico',
 fechar:'Fechar',fotoAnt:'Foto anterior',fotoProx:'Próxima foto',foto:'Foto',nenhumaHist:'Nenhuma ata histórica neste ano.',categoria:'Categoria',
-atasLead:'Busque por assunto, nome ou data. Toque numa ata para ler o resumo e a transcrição completa, feita <i>ipsis litteris</i> a partir dos livros originais.',
+navPres:'Presenças',presH:'Livros de presença',presLead:'A cada sessão, os Irmãos presentes assinavam o livro de presença com nome e grau. Estão aqui as listas lidas nos dois livros que chegaram até nós: 1877–1885 e 1944–1947. Toque numa sessão para ver os nomes ao lado da página original.',presPh:'Buscar por nome ou data (ex.: Telles, 1945)',presTodos:'Todos os livros',presSes:'sessão',presSesN:'sessões',presentes:'presentes',presDe:'Presença de',thNum:'Nº',thGrau:'Grau',thObs:'Observação',incerta:'leitura incerta',provavel:'leitura provável',verPres:'Ver a lista de presença desta sessão',presAnt:'Sessão anterior',presProx:'Próxima sessão',presNote:'Nomes como escritos no livro (assinaturas). Leituras incertas estão marcadas.',verAta:'Ver a ata desta sessão',atasLead:'Busque por assunto, nome ou data. Toque numa ata para ler o resumo e a transcrição completa, feita <i>ipsis litteris</i> a partir dos livros originais.',
 atasPh:'Ex.: abolição, Rui Barbosa, eleição, 1932',buscarAtas:'Buscar atas',decada:'Década',todasDec:'Todas as décadas',todasCat:'Todas as categorias',cat3:'Históricas',cat2:'Úteis',cat1:'Rotina',
 transcricao:'Transcrição',comSem:'Com ou sem transcrição',soTx:'Só transcritas',mais:'Mostrar mais',semTx:'sem transcrição',
 admLead:'Gestões da Loja reconstituídas a partir das atas e assinaturas; quando não há atas, vale o Venerável da placa da Loja. Toque no ano para ver a gestão na linha do tempo.',
@@ -335,7 +336,7 @@ notice1976:'<b>Actas de 1976 en adelante:</b> aún no incorporadas al acervo dig
 posse:'Instalación',gestao:'gestión',novaSede:'Nueva sede',ver:'Ver',ocultar:'Ocultar',hist1:'histórica',histN:'históricas',venAbbr:'Ven∴',
 ataDe:'Acta del',ampliarFoto:'Ampliar foto',fotos:'fotos',toque:'toque para ampliar',irmaosEnv:'Hermanos de la Logia involucrados',leia:'Lea la historia completa',leiaIrm:' y los Hermanos involucrados',fonte:'Fuente',ctxHist:'Contexto histórico',
 fechar:'Cerrar',fotoAnt:'Foto anterior',fotoProx:'Foto siguiente',foto:'Foto',nenhumaHist:'Ninguna acta histórica en este año.',categoria:'Categoría',
-atasLead:'Busque por tema, nombre o fecha. Toque un acta para leer el resumen y la transcripción completa, hecha <i>ipsis litteris</i> a partir de los libros originales.',
+navPres:'Asistencias',presH:'Libros de asistencia',presLead:'En cada sesión, los Hermanos presentes firmaban el libro de asistencia con nombre y grado. Aquí están las listas leídas en los dos libros que se conservan: 1877–1885 y 1944–1947. Toque una sesión para ver los nombres junto a la página original.',presPh:'Buscar por nombre o fecha (ej.: Telles, 1945)',presTodos:'Todos los libros',presSes:'sesión',presSesN:'sesiones',presentes:'presentes',presDe:'Asistencia del',thNum:'Nº',thGrau:'Grado',thObs:'Observación',incerta:'lectura incierta',provavel:'lectura probable',verPres:'Ver la lista de asistencia de esta sesión',presAnt:'Sesión anterior',presProx:'Sesión siguiente',presNote:'Nombres tal como están escritos en el libro (firmas). Las lecturas inciertas están marcadas.',verAta:'Ver el acta de esta sesión',atasLead:'Busque por tema, nombre o fecha. Toque un acta para leer el resumen y la transcripción completa, hecha <i>ipsis litteris</i> a partir de los libros originales.',
 atasPh:'Ej.: abolição, Rui Barbosa, eleição, 1932',buscarAtas:'Buscar actas',decada:'Década',todasDec:'Todas las décadas',todasCat:'Todas las categorías',cat3:'Históricas',cat2:'Útiles',cat1:'Rutina',
 transcricao:'Transcripción',comSem:'Con o sin transcripción',soTx:'Solo transcritas',mais:'Mostrar más',semTx:'sin transcripción',
 admLead:'Gestiones de la Logia reconstruidas a partir de las actas y las firmas; cuando no hay actas, vale el Venerable de la placa de la Logia. Toque el año para ver la gestión en la línea de tiempo.',
@@ -360,7 +361,7 @@ notice1976:'<b>Minutes from 1976 onwards:</b> not yet added to the digital archi
 posse:'Installation',gestao:'term',novaSede:'New meeting place',ver:'Show',ocultar:'Hide',hist1:'historic',histN:'historic',venAbbr:'W∴M∴',
 ataDe:'Minutes of',ampliarFoto:'Enlarge photo',fotos:'photos',toque:'tap to enlarge',irmaosEnv:'Lodge Brethren involved',leia:'Read the full story',leiaIrm:' and the Brethren involved',fonte:'Source',ctxHist:'Historical context',
 fechar:'Close',fotoAnt:'Previous photo',fotoProx:'Next photo',foto:'Photo',nenhumaHist:'No historic minutes this year.',categoria:'Category',
-atasLead:'Search by subject, name or date. Tap a record to read its summary and the full transcription, made <i>ipsis litteris</i> from the original books.',
+navPres:'Attendance',presH:'Attendance books',presLead:'At every meeting the Brethren present signed the attendance book with their name and degree. Here are the lists read from the two books that survive: 1877–1885 and 1944–1947. Tap a meeting to see the names beside the original page.',presPh:'Search by name or date (e.g. Telles, 1945)',presTodos:'All books',presSes:'meeting',presSesN:'meetings',presentes:'present',presDe:'Attendance of',thNum:'No.',thGrau:'Degree',thObs:'Note',incerta:'uncertain reading',provavel:'probable reading',verPres:'See the attendance list for this meeting',presAnt:'Previous meeting',presProx:'Next meeting',presNote:'Names as written in the book (signatures). Uncertain readings are marked.',verAta:'See the minutes of this meeting',atasLead:'Search by subject, name or date. Tap a record to read its summary and the full transcription, made <i>ipsis litteris</i> from the original books.',
 atasPh:'e.g. abolição, Rui Barbosa, eleição, 1932',buscarAtas:'Search the minutes',decada:'Decade',todasDec:'All decades',todasCat:'All categories',cat3:'Historic',cat2:'Useful',cat1:'Routine',
 transcricao:'Transcription',comSem:'With or without transcription',soTx:'Transcribed only',mais:'Show more',semTx:'not transcribed',
 admLead:'Lodge administrations reconstructed from the minutes and signatures; where there are no minutes, the Worshipful Master on the Lodge plaque is shown. Tap a year to see the term on the timeline.',
@@ -435,6 +436,7 @@ async function boot(){
     getJ('data/atas.json'),getJ('data/adm.json'),getJ('data/membros.json'),
     getJ('data/marcos.json').catch(()=>[]),getJ('data/contexto.json').catch(()=>({eras:[],eventos:[]}))]);
   getJ('data/img.json').then(j=>S.img=j).catch(()=>{});
+  getJ('data/presencas.json').then(j=>{S.pres=j.s;S.presByD={};j.s.forEach((p,i)=>(S.presByD[p[0]]??=[]).push(i));if(S.view==='presencas')route(true)}).catch(()=>{S.pres=[]});
   S.atas=atas; atas.forEach(a=>{S.byId[a.i]=a;(S.byYear[a.y]??=[]).push(a)});
   S.adm=adm.r.map(r=>{const m=String(r[0]).match(/(\d{4})\D+(\d{4})/);return{g:r[0],de:m?+m[1]:0,ate:m?+m[2]:0,ven:r[1],v1:r[2],v2:r[3],or:r[4],sec:r[5],tes:r[6],out:r[7],obs:r[11],conf:r[12],placa:r[10]}}).filter(g=>g.de);
   S.memH=mem.h; S.mem=mem.r;
@@ -602,6 +604,42 @@ function viewAlem(){
   <div class="alem">${L.map(m=>`<div class="alem-item"><a class="alem-ano" href="#ano-${m.ano}">${m.ano}</a>${marcoCard(m)}</div>`).join('')}</div></div>`;
 }
 
+/* ---------- Presenças ---------- */
+function viewPres(){
+  if(!S.pres)return `<div class="wrap view"><h2>${t('presH')}</h2><p class="lead">${t('loading')}</p></div>`;
+  const books=[...new Set(S.pres.map(p=>p[1]))];
+  return `<div class="wrap view"><h2>${t('presH')}</h2><p class="lead">${t('presLead')}</p>${langNote()}
+  <div class="search"><input id="pq" type="search" placeholder="${t('presPh')}" aria-label="${t('presPh')}">
+  <select id="pb" aria-label="${t('livro')}"><option value="">${t('presTodos')}</option>${books.map(b=>`<option>${esc(b)}</option>`).join('')}</select></div>
+  <div class="count" id="pcnt"></div><div class="res" id="pres"></div><button class="more" id="pmore" hidden>${t('mais')}</button></div>`;
+}
+function bindPres(){
+  if(!S.pres)return;let lim=60;const run=()=>{
+    const q=norm($('#pq').value.trim()),b=$('#pb').value;
+    const r=S.pres.map((p,i)=>[p,i]).filter(([p])=>(!b||p[1]===b)&&(!q||norm(p[0]+' '+p[2]+' '+p[4].map(n=>n[0]).join(' ')).includes(q)));
+    $('#pcnt').textContent=`${num(r.length)} ${t(r.length===1?'presSes':'presSesN')}`;
+    $('#pres').innerHTML=r.slice(0,lim).map(([p,i])=>{const nm=q?p[4].filter(n=>norm(n[0]).includes(q)).map(n=>n[0]):[];return `<button class="arow" data-pres="${i}"><span class="dt">${esc(p[0])}</span><span class="rs"><b>${esc(p[2])}</b> — ${p[4].length} ${t('presentes')} · ${esc(p[1])}${nm.length?` · <i>${esc(nm.slice(0,3).join(', '))}</i>`:''}</span></button>`}).join('');
+    $('#pmore').hidden=r.length<=lim;
+  };
+  ['pq','pb'].forEach(id=>$('#'+id).addEventListener('input',()=>{lim=60;run()}));
+  $('#pmore').onclick=()=>{lim+=120;run()};run();
+}
+function openPres(i){
+  const p=S.pres?.[i];if(!p)return;
+  const R=$('#reader');R.hidden=false;document.body.style.overflow='hidden';
+  const mode=getMode(), atas=S.atas.filter(a=>a.d===p[0]&&!a.lv.startsWith('Livro36'));
+  const marca=n=>n[3]==='b'?` <small style="color:var(--muted)">(${t('incerta')})</small>`:n[3]==='m'?` <small style="color:var(--muted)">(${t('provavel')})</small>`:'';
+  R.innerHTML=`<div class="sheet wide" data-mode="${mode}" role="dialog" aria-modal="true" aria-label="${t('presDe')} ${esc(p[0])}"><header><div><div class="eyebrow" style="color:var(--gold)">${t('presH')}</div><h2>${t('presDe')} ${esc(p[0])}</h2><div style="color:var(--muted);margin-top:4px">${esc(p[2])} · ${p[4].length} ${t('presentes')}</div></div><button class="close" aria-label="${t('fechar')}">✕</button></header>
+  <dl class="kv"><dt>${t('livro')}</dt><dd>${esc(p[1])}</dd>${atas.length?`<dt>${t('navAtas')}</dt><dd>${atas.map(a=>`<button class="lk" data-goata="${a.i}">${t('verAta')}${atas.length>1?' ('+esc(tipo(a))+')':''}</button>`).join(' ')}</dd>`:''}</dl>
+  <div class="modes" role="group" aria-label="${t('comoLer')}"><button data-mode="orig">${t('manuscrito')}</button><button data-mode="trans">${t('transcricao')}</button><button data-mode="ambos">${t('ladoALado')}</button></div>
+  <div class="doc"><div class="orig" id="origb"><h4>${t('manuscrito')}</h4>${p[3].map(n=>pageFig(p[1],n)).join('')}</div><div class="tx" id="txb" style="white-space:normal"><h4>${t('transcricao')}</h4><div class="tblwrap"><table><thead><tr><th>${t('thNum')}</th><th>${t('thNome')}</th><th>${t('thGrau')}</th><th>${t('thObs')}</th></tr></thead><tbody>${p[4].map((n,k)=>`<tr><td class="n">${k+1}</td><td>${esc(n[0])}${marca(n)}</td><td>${esc(n[1])}</td><td>${esc(n[2])}</td></tr>`).join('')}</tbody></table></div><p class="pg-note">${t('presNote')}</p></div></div>
+  <div class="navrow"><button data-pnav="${i-1}" ${i>0?'':'disabled'}>← ${t('presAnt')}</button><span></span><button data-pnav="${i+1}" ${i<S.pres.length-1?'':'disabled'}>${t('presProx')} →</button></div></div>`;
+  setMode(mode);R.querySelector('.close').focus();
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pres]');if(b){openPres(+b.dataset.pres);return}
+  const g=e.target.closest('[data-goata]');if(g){openAta(+g.dataset.goata);return}
+  const n=e.target.closest('[data-pnav]');if(n&&!n.disabled)openPres(+n.dataset.pnav)});
+
 /* ---------- Leitor de ata ---------- */
 function pageFig(book,p){
   const ix=S.img[book]?.[p];
@@ -617,7 +655,7 @@ async function openAta(id){
   const R=$('#reader');R.hidden=false;document.body.style.overflow='hidden';
   const list=S.atas, ix=list.indexOf(a), has=a.tx.length>0, mode=has?getMode():'trans';
   R.innerHTML=`<div class="sheet${has?' wide':''}" data-mode="${mode}" role="dialog" aria-modal="true" aria-label="${t('ataDe')} ${esc(a.d)}"><header><div><div class="eyebrow" style="color:var(--gold)">${t('ataCat'+a.c)}</div><h2>${t('ataDe')} ${esc(a.d)}</h2><div style="color:var(--muted);margin-top:4px">${esc(tipo(a))}</div></div><button class="close" aria-label="${t('fechar')}">✕</button></header>
-  ${langNote()}<dl class="kv">${a.v?`<dt>${t('thVen')}</dt><dd>${esc(a.v)}</dd>`:''}${a.p?`<dt>${t('presidiu')}</dt><dd>${esc(a.p)}</dd>`:''}${a.s?`<dt>${t('sede')}</dt><dd>${esc(a.s)}</dd>`:''}${a.tt?`<dt>${t('temas')}</dt><dd>${esc(a.tt)}</dd>`:''}<dt>${t('livro')}</dt><dd>${esc(a.lv)}</dd></dl>
+  ${langNote()}<dl class="kv">${a.v?`<dt>${t('thVen')}</dt><dd>${esc(a.v)}</dd>`:''}${a.p?`<dt>${t('presidiu')}</dt><dd>${esc(a.p)}</dd>`:''}${a.s?`<dt>${t('sede')}</dt><dd>${esc(a.s)}</dd>`:''}${a.tt?`<dt>${t('temas')}</dt><dd>${esc(a.tt)}</dd>`:''}<dt>${t('livro')}</dt><dd>${esc(a.lv)}</dd>${(S.presByD?.[a.d]||[]).length?`<dt>${t('navPres')}</dt><dd>${S.presByD[a.d].map(k=>`<button class="lk" data-pres="${k}">${t('verPres')}</button>`).join(' ')}</dd>`:''}</dl>
   <div class="box"><h4>${t('resumo')}</h4><p>${esc(a.r)}</p></div>${a.h?`<div class="box"><h4>${t('porQue')}</h4><p>${esc(a.h)}</p></div>`:''}
   ${has?`<div class="modes" role="group" aria-label="${t('comoLer')}"><button data-mode="orig">${t('manuscrito')}</button><button data-mode="trans">${t('transcricao')}</button><button data-mode="ambos">${t('ladoALado')}</button></div>`:''}
   <div class="doc"><div class="orig" id="origb"></div><div class="tx" id="txb">${has?t('carregTx'):`<h4>${t('transcricao')}</h4>${t('naoTx')}`}</div></div>
@@ -656,12 +694,12 @@ document.addEventListener('click',e=>{const L=e.target.closest('#lbx');if(L){con
 document.addEventListener('click',e=>{const b=e.target.closest('[data-ata]');if(b&&!b.closest('#reader'))openAta(+b.dataset.ata)});
 
 /* ---------- Roteamento ---------- */
-const VIEWS={linha:[viewLinha,bindLinha],atas:[viewAtas,bindAtas],administracao:[viewAdm,()=>{}],membros:[viewMem,bindMem],sedes:[viewSedes,()=>{}],alem:[viewAlem,()=>{}]};
-function route(){
+const VIEWS={linha:[viewLinha,bindLinha],atas:[viewAtas,bindAtas],presencas:[viewPres,bindPres],administracao:[viewAdm,()=>{}],membros:[viewMem,bindMem],sedes:[viewSedes,()=>{}],alem:[viewAlem,()=>{}]};
+function route(force){
   let h=location.hash.slice(1)||'linha', target=null;
   if(/^ano-\d{4}$/.test(h)){target=h;h='linha';const y=+target.slice(4);if(S.byYear[y])S.openYears.add(y)}
   if(!VIEWS[h])h='linha';
-  if(S.view!==h||target){$('#main').innerHTML=VIEWS[h][0]();VIEWS[h][1]();S.view=h}
+  if(S.view!==h||target||force){$('#main').innerHTML=VIEWS[h][0]();VIEWS[h][1]();S.view=h}
   document.querySelectorAll('.nav a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));
   if(target){requestAnimationFrame(()=>$('#'+target)?.scrollIntoView())}else window.scrollTo(0,0);
 }
