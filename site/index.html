@@ -664,14 +664,14 @@ function viewIlu(){
 }
 function bindIlu(){
   if(!S.ilu)return;const run=()=>{const q=norm($('#iq').value.trim());
-    $('#ires').innerHTML=S.ilu.map((v,i)=>[v,i]).filter(([v])=>!q||norm(v.nome+' '+(v.nome_completo||'')).includes(q)).map(([v,i])=>`<button class="vcard" data-ilu="${i}"><span class="vface">${venFace(v)}</span><span class="vtx"><span class="vord">${t('iluMemb')}</span><b>${esc(v.nome)}</b><span class="vper">${esc(v.periodo)} · ${v.registros} ${t('iluRegs')}</span>${(v.destaques||[]).slice(0,1).map(d=>`<span class="vdest">${esc(d)}</span>`).join('')}</span></button>`).join('');};
+    $('#ires').innerHTML=S.ilu.map((v,i)=>[v,i]).filter(([v])=>!q||norm(v.nome+' '+(v.nome_completo||'')).includes(q)).map(([v,i])=>`<button class="vcard" data-ilu="${i}"><span class="vface">${venFace(v)}</span><span class="vtx"><span class="vord">${t('iluMemb')}</span><b>${esc(v.nome)}</b><span class="vper">${v.registros?esc(v.periodo)+' · '+v.registros+' '+t('iluRegs'):''}</span>${(v.destaques||[]).slice(0,1).map(d=>`<span class="vdest">${esc(d)}</span>`).join('')}</span></button>`).join('');};
   $('#iq').addEventListener('input',run);run();
 }
 function openIlu(i){
   const v=S.ilu?.[i];if(!v)return;
   const R=$('#reader');R.hidden=false;document.body.style.overflow='hidden';
   const vi=v.ven?(S.ven||[]).findIndex(x=>x.id===v.ven):-1;
-  R.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(v.nome)}"><header><div><div class="eyebrow" style="color:var(--gold)">${t('iluMemb')} · ${esc(v.periodo)} · ${v.registros} ${t('iluRegs')}</div><h2>${esc(v.nome)}</h2>${v.nome_completo&&v.nome_completo!==v.nome?`<div style="color:var(--muted);margin-top:4px">${esc(v.nome_completo)}</div>`:''}</div><button class="close" aria-label="${t('fechar')}">✕</button></header>
+  R.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(v.nome)}"><header><div><div class="eyebrow" style="color:var(--gold)">${t('iluMemb')}${v.registros?' · '+esc(v.periodo)+' · '+v.registros+' '+t('iluRegs'):''}</div><h2>${esc(v.nome)}</h2>${v.nome_completo&&v.nome_completo!==v.nome?`<div style="color:var(--muted);margin-top:4px">${esc(v.nome_completo)}</div>`:''}</div><button class="close" aria-label="${t('fechar')}">✕</button></header>
   ${langNote()}
   ${v.retrato?`<div class="vfigs"><figure class="vfig"><img src="${esc(v.retrato)}" alt="${esc(t('retratoIA'))}"><figcaption>${esc(t('retratoIA'))}</figcaption></figure></div>`:''}
   ${(v.bio||[]).map(p=>`<p>${esc(p)}</p>`).join('')}
