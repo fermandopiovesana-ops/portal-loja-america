@@ -1,0 +1,30 @@
+{
+  "id": "2026-documentario-sobre-a-vida-de",
+  "tipo": "Outra sugestão ou inclusão",
+  "linha": 3,
+  "remetente": "Ir∴ Fernando Piovesana",
+  "recebida_em": "18/11/2026 08:41:02",
+  "assunto": "Lançamento de documentário sobre a vida de Ruy Barbosa, que cita sua passagem pela Maçonaria e sua relação com Luiz Gama",
+  "local": "Streaming Prime Video",
+  "data": "não informada (lançamento recente, segundo o remetente)",
+  "fonte_informada": "https://curtaon.com.br/filme/?name=a_voz_de_ruy",
+  "arquivos": [],
+  "resumo": "O Ir∴ Fernando Piovesana informa o lançamento de um documentário sobre a vida e a obra de Ruy Barbosa, que entrelaça imagens de arquivo, dramaturgia e fragmentos sonoros, destaca sua influência na modernidade e na construção democrática do País e, segundo o remetente, cita sua passagem pela Maçonaria e sua relação com Luiz Gama.",
+  "verificacao": {
+    "confere": [
+      "Rui Barbosa já tem entrada em Ilustres (rui-barbosa): as atas o dão como iniciado na Loja América em 05/07/1869, quando estudante de Direito em São Paulo.",
+      "A relação com Luiz Gama aparece nos marcos 1869-regularizacao-no-grande-oriente-do, 1870-o-projeto-de-lei-de e 1936-a-america-lembrada-como-loja."
+    ],
+    "nao_verificavel": [
+      "O conteúdo do documentário (inclusive a menção à Maçonaria e a Luiz Gama), seu título exato e a data de lançamento não puderam ser conferidos nesta verificação; o formulário não traz data."
+    ],
+    "contradiz": []
+  },
+  "alteracao_opcional": {
+    "observacao": "Tipo 'Outra sugestão': nada é alterado. Se o aprovador quiser, pode ser acrescentada apenas uma referência ao filme nas fontes da entrada de Rui Barbosa.",
+    "arquivo": "site/data/ilustres.json",
+    "item": "rui-barbosa",
+    "campo": "fontes",
+    "acrescentar": "Documentário sobre a vida e a obra de Rui Barbosa (indicação do Ir∴ Fernando Piovesana, 2026): https://curtaon.com.br/filme/?name=a_voz_de_ruy"
+  }
+}
