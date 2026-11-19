@@ -10,5 +10,43 @@
   "arquivos": [],
   "acao_proposta": "Somente resumo ao aprovador; nenhum arquivo do portal alterado. Trata-se de pedido de pesquisa, sem fato novo a publicar.",
   "verificacao": "Não há fato concreto a conferir contra as atas. Os dados do portal já registram atos legais ligados à história da Loja (Decreto nº 173, de 10/09/1893, e o registro dos estatutos no Diário Oficial de 09/10/1894; Lei do Ventre Livre de 1871 como contexto) e as homenagens da Câmara Municipal de São Paulo (Salva de Prata, 07/11/2008; Diploma de Reconhecimento, 24/08/2019). Busca preliminar na web não encontrou norma federal que cite a Loja América nº 189; a consulta no próprio Portal da Legislação, que exige busca interativa, não foi feita por esta tarefa.",
-  "proximo_passo": "Se o aprovador desejar, uma pesquisa dirigida (por exemplo, 'Loja América' e 'Loja Maçônica América' no Portal da Legislação e no Diário Oficial da União) pode ser feita numa sessão própria; qualquer resultado viraria nova proposta de marco para aprovação."
+  "proximo_passo": "Se o aprovador desejar, uma pesquisa dirigida (por exemplo, 'Loja América' e 'Loja Maçônica América' no Portal da Legislação e no Diário Oficial da União) pode ser feita numa sessão própria; qualquer resultado viraria nova proposta de marco para aprovação.",
+  "pesquisa_19_11_2026": {
+    "pedido": "Ir∴ Fernando pediu na sessão (19/11/2026) pesquisa de atos relacionados à Loja e aos seus membros, para aprovação.",
+    "loja_diretamente": "Nenhum ato federal encontrado que cite a Loja América nº 189 (legis.senado.leg.br, planalto, câmara; buscas na web). Já publicados no portal: Decreto nº 173/1893 e Lei Municipal 14.485/2007.",
+    "alteracoes": [
+      {
+        "arquivo": "site/data/ilustres.json",
+        "item": "luiz-gama",
+        "campo": "bio/fontes",
+        "proposto": "Lei nº 13.628, de 16/01/2018 (inscreve Luiz Gama no Livro dos Heróis da Pátria) e Lei nº 13.629, de 16/01/2018 (declara Luiz Gama Patrono da Abolição da Escravidão do Brasil)",
+        "fontes": [
+          "https://planalto.gov.br/ccivil_03/_ato2015-2018/2018/Lei/L13628.htm",
+          "https://planalto.gov.br/ccivil_03/_ato2015-2018/2018/Lei/L13629.htm"
+        ]
+      },
+      {
+        "arquivo": "site/data/ilustres.json",
+        "item": "rui-barbosa",
+        "campo": "bio/fontes",
+        "proposto": "Lei nº 13.162, de 09/09/2015 (inscreve Rui Barbosa de Oliveira no Livro dos Heróis da Pátria); Lei nº 4.943, de 06/04/1966 (Fundação Casa de Rui Barbosa; 'Dia de Rui Barbosa' em 5 de novembro)",
+        "fontes": [
+          "https://legis.senado.leg.br/norma/584974/publicacao/15618591",
+          "https://legis.senado.leg.br/norma/546800/publicacao/15642568"
+        ]
+      },
+      {
+        "arquivo": "site/data/ilustres.json",
+        "item": "joaquim-nabuco",
+        "campo": "bio/fontes",
+        "proposto": "Lei nº 12.988, de 02/06/2014 (inscreve Joaquim Nabuco no Livro dos Heróis da Pátria); Lei nº 11.946, de 15/06/2009 (2010, Ano Nacional Joaquim Nabuco)",
+        "fontes": [
+          "https://legis.senado.leg.br/norma/584796/publicacao/15635839",
+          "https://planalto.gov.br/ccivil_03/_ato2007-2010/2009/Lei/L11946.htm"
+        ]
+      }
+    ],
+    "sem_resultado": "Demais Ilustres não constam do Livro dos Heróis e Heroínas da Pátria (lista da Agência Senado).",
+    "limites": "Busca interativa no Portal da Legislação e no DOU não realizada; leis estaduais e municipais não pesquisadas a fundo."
+  }
 }
