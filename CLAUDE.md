@@ -88,3 +88,27 @@ A cada execução:
 
 Nunca publique sem a aprovação explícita do aprovador no thread. Nunca altere `site/img/`, `site/data/atas.json`,
 `site/data/membros.json` nem as transcrições por este fluxo. Se nada houver de novo, termine sem enviar e-mail.
+
+## Instagram: seções IHF e SCORB e linha do tempo da Loja (tarefa semanal)
+
+Arquivos: `site/data/ihf.json` e `site/data/scorb.json` (lista em ordem cronológica do acontecimento) e fotos em
+`site/fotos/insta/<código>_<n>.webp` (até 4 por post, 1080 px, WebP). Formato de um item:
+`{"id":"<código do post>","d":"AAAA-MM-DD (data do acontecimento)","dp":"AAAA-MM-DD (data do post)","f":["fotos/insta/..."],
+"pt":{"t":"título","x":"1–2 frases"},"en":{...},"es":{...},"ano":2026 (só se também estiver na linha da Loja)}`.
+
+Perfis: @arlsamerica189 (Loja), @herdeiros.do.futuro (IHF), @scorb.ritobrasileiro (SCORB) e @grandeorientesp (GOSP: só posts
+que citam a Loja América). Controle em `contrib/estado.json`, chave `instagram` (`posts_vistos`, `incluidos_ate`).
+
+Regras:
+- Só eventos e notícias: sessões, iniciações e elevações, fundações, posses, homenagens, ações sociais, parcerias, doações
+  recebidas, aniversários com evento, palestras. Fora: datas comemorativas, frases, convites, pedidos de doação, campanhas
+  genéricas e textos de conscientização.
+- Texto redigido a partir da legenda (sem inventar), em PT/EN/ES; data do acontecimento quando diferente da do post; se a
+  legenda trouxer data impossível, usar a do post e escrever "(data aproximada)".
+- Posts do IHF vão para `ihf.json`; do SCORB para `scorb.json`; da Loja (e do GOSP que citem a Loja) viram marco na linha
+  do tempo da Loja.
+- Os mais relevantes para a Loja (fundações, aniversários do IHF/SCORB, novas unidades, eventos no templo da Loja, Irmãos da
+  Loja homenageados ou à frente) ficam nos dois lugares: item na seção + marco em `marcos.json` (com `"ano"` no item).
+  Os demais ficam só na seção do IHF ou do SCORB.
+- Coleta pelo Chrome do usuário: ler o perfil e, para cada post novo, a página `instagram.com/p/<código>/embed/captioned/`
+  (legenda e fotos); a página normal do post pode dar HTTP 429. Não usar a API interna do Instagram.
